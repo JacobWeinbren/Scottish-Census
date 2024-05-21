@@ -1,6 +1,42 @@
 import csv
 import string
 
+csv_files = [
+        ("output/census_ages.csv", 0, "ages"),
+        ("data/census-data/UV201 - Ethnic group.csv", 4, "ethnic-group"),
+        ("data/census-data/UV202 - National Identity.csv", 4, "national-identity"),
+        (
+            "data/census-data/UV203 - Multiple ethnic groups.csv",
+            3,
+            "multiple-ethnic-groups",
+        ),
+        ("output/census_nationalities.csv", 0, "nationalities"),
+        ("data/census-data/UV205 - Religion.csv", 4, "religion"),
+        ("data/census-data/UV206 - Passports held.csv", 4, "passports-held"),
+        (
+            "data/census-data/UV208 - Gaelic language skills.csv",
+            4,
+            "gaelic-language-skills",
+        ),
+        (
+            "data/census-data/UV209 - Scots language skills.csv",
+            4,
+            "scots-language-skills",
+        ),
+        (
+            "data/census-data/UV210 - English language skills.csv",
+            4,
+            "english-language-skills",
+        ),
+        (
+            "data/census-data/UV211 - British Sign Language (BSL) skills.csv",
+            4,
+            "bsl-skills",
+        ),
+        ("data/census-data/UV212 - Main language.csv", 4, "main-language"),
+        ("data/census-data/UV406 - Household size.csv", 3, "household-size"),
+    ]
+
 
 def generate_key(index):
     if index < 26:

@@ -2,7 +2,7 @@ import os
 import csv
 import ujson
 import copy
-from dictionary import create_key_mapping
+from dictionary import create_key_mapping, csv_files
 
 
 def load_geojson(path):
@@ -47,10 +47,9 @@ def process_csv(csv_file, geojson_data, skip_rows, key_mapping):
                     key_mapping[k]: properties[k] for k in properties if k != "code"
                 }
 
-    code_key = "code_2" if "intersected" in modified_geojson_data else "code"
-
     print(f"Processing .geojson file for: {csv_file}")
     for key in ["intersected", "output_areas"]:
+        code_key = "code_2" if key == "intersected" else "code"
         for feature in modified_geojson_data[key]["features"]:
             feature_code = feature["properties"].get(code_key)
             if feature_code in properties_by_code:
@@ -66,41 +65,6 @@ def main():
         "intersected": intersected_geojson,
         "output_areas": output_areas_geojson,
     }
-    csv_files = [
-        ("output/census_ages.csv", 0, "ages"),
-        ("data/census-data/UV201 - Ethnic group.csv", 4, "ethnic-group"),
-        ("data/census-data/UV202 - National Identity.csv", 4, "national-identity"),
-        (
-            "data/census-data/UV203 - Multiple ethnic groups.csv",
-            3,
-            "multiple-ethnic-groups",
-        ),
-        ("output/census_nationalities.csv", 0, "nationalities"),
-        ("data/census-data/UV205 - Religion.csv", 4, "religion"),
-        ("data/census-data/UV206 - Passports held.csv", 4, "passports-held"),
-        (
-            "data/census-data/UV208 - Gaelic language skills.csv",
-            4,
-            "gaelic-language-skills",
-        ),
-        (
-            "data/census-data/UV209 - Scots language skills.csv",
-            4,
-            "scots-language-skills",
-        ),
-        (
-            "data/census-data/UV210 - English language skills.csv",
-            4,
-            "english-language-skills",
-        ),
-        (
-            "data/census-data/UV211 - British Sign Language (BSL) skills.csv",
-            4,
-            "bsl-skills",
-        ),
-        ("data/census-data/UV212 - Main language.csv", 4, "main-language"),
-        ("data/census-data/UV406 - Household size.csv", 3, "household-size"),
-    ]
 
     key_mapping = create_key_mapping(csv_files)
 

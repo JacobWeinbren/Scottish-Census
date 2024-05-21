@@ -11,10 +11,8 @@ def intersect_geojson(file1, file2, output_file):
     print("Performing intersection...")
     intersection = gpd.overlay(gdf1, gdf2, how="intersection", keep_geom_type=True)
 
-    # Round the geometry coordinates to 6 decimal places
-    intersection.geometry = intersection.geometry.apply(
-        lambda geom: geom.round_coordinates(6)
-    )
+    # Snap the geometry coordinates to a grid with a tolerance of 0
+    intersection.geometry = intersection.geometry.apply(lambda geom: geom.buffer(0))
 
     # Save the result to a new GeoJSON file
     intersection.to_file(output_file, driver="GeoJSON")
