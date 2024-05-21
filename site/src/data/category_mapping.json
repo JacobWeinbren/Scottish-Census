@@ -1,0 +1,14 @@
+{
+	"Age": "ages",
+	"Ethnic group": "ethnic-group",
+	"National Identity": "national-identity",
+	"Multiple ethnic groups": "multiple-ethnic-groups",
+	"Religion": "religion",
+	"Passports held": "passports-held",
+	"Gaelic language skills": "gaelic-language-skills",
+	"Scots language skills": "scots-language-skills",
+	"English language skills": "english-language-skills",
+	"British Sign Language (BSL) skills": "bsl-skills",
+	"Main language": "main-language",
+	"Household size": "household-size"
+}

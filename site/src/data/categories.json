@@ -1,0 +1,128 @@
+{
+	"Age": [
+		"0 - 15",
+		"16 - 24",
+		"25 - 34",
+		"35 - 49",
+		"50 - 64",
+		"65 and over"
+	],
+	"Ethnic group": [
+		"White: Total",
+		"White: White Scottish",
+		"White: Other White British",
+		"White: White Irish",
+		"White: Gypsy/ Traveller",
+		"White: White Polish",
+		"Other White",
+		"Mixed or multiple ethnic group",
+		"Asian, Asian Scottish or Asian British: Total",
+		"Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British",
+		"Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British",
+		"Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British",
+		"Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British",
+		"Asian, Asian Scottish or Asian British: Other Asian",
+		"African: Total",
+		"African: African, African Scottish or African British",
+		"African: Other African",
+		"Caribbean or Black: Total",
+		"Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British",
+		"Caribbean or Black: Black, Black Scottish or Black British",
+		"Caribbean or Black: Other Caribbean or Black",
+		"Other ethnic groups: Total",
+		"Other ethnic groups: Arab, Arab Scottish or Arab British",
+		"Other ethnic groups: Other ethnic group"
+	],
+	"National Identity": [
+		"Scottish identity only",
+		"British identity only",
+		"Scottish and British identities only",
+		"Scottish and any other identities",
+		"English identity only",
+		"Any other combination of UK identities (UK only)",
+		"Other identity only (1)",
+		"Other identity and at least one UK identity"
+	],
+	"Multiple ethnic groups": [
+		"All occupied households",
+		"One person household",
+		"All household members have the same ethnic group",
+		"Different identities between the generations only",
+		"Different identities within partnerships (whether or not also different identities between generations)",
+		"Any other combination of multiple ethnic identities"
+	],
+	"Religion": [
+		"Church of Scotland",
+		"Roman Catholic",
+		"Other Christian",
+		"Buddhist",
+		"Hindu",
+		"Jewish",
+		"Muslim",
+		"Sikh",
+		"Pagan",
+		"Other religion",
+		"No religion",
+		"Religion not stated"
+	],
+	"Passports held": [
+		"Europe: Total",
+		"Europe: United Kingdom",
+		"Europe: Ireland",
+		"Europe: EU member countries",
+		"Europe: Rest of Europe",
+		"Africa",
+		"Middle East and Asia",
+		"Antarctica and Oceania",
+		"No Passport",
+		"The Americas and the Caribbean"
+	],
+	"Gaelic language skills": [
+		"Understands but does not speak, read or write Gaelic",
+		"Speaks, reads and writes Gaelic",
+		"Speaks but does not read or write Gaelic",
+		"Speaks and reads but does not write Gaelic",
+		"Reads but does not speak or write Gaelic",
+		"Other combination of skills in Gaelic",
+		"No skills in Gaelic"
+	],
+	"Scots language skills": [
+		"Understands but does not speak, read or write Scots",
+		"Speaks, reads and writes Scots",
+		"Speaks but does not read or write Scots",
+		"Speaks and reads but does not write Scots",
+		"Reads but does not speak or write Scots",
+		"Other combination of skills in Scots",
+		"No skills in Scots"
+	],
+	"English language skills": [
+		"Understands spoken English only",
+		"Speaks, reads and writes English",
+		"Speaks but does not read or write English",
+		"Speaks and reads but does not write English",
+		"Reads but does not speak or write English",
+		"Writes but does not speak or read English",
+		"Reads and writes but does not speak English",
+		"Other combinations of skills in English",
+		"Limited English skills",
+		"No skills in English"
+	],
+	"British Sign Language (BSL) skills": ["BSL User", "Not a BSL user"],
+	"Main language": [
+		"English",
+		"Scots",
+		"Gaelic",
+		"Sign Language",
+		"Other language"
+	],
+	"Household size": [
+		"One person",
+		"Two people",
+		"Three people",
+		"Four people",
+		"Five people",
+		"Six people",
+		"Seven people",
+		"Eight or more people"
+	]
+}
