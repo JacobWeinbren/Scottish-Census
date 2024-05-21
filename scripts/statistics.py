@@ -1,4 +1,4 @@
-from dictionary import csv_files
+from dictionary import csv_files, total_column
 import pandas as pd
 import numpy as np
 import json
@@ -18,21 +18,7 @@ def calculate_statistics(file_path, description, skip_rows):
         df = df.replace("-", 0).apply(pd.to_numeric, errors="coerce")
 
         # Get the total column based on the description
-        total_column = {
-            "ages": "Total",
-            "ethnic-group": "All People",
-            "national-identity": "All people",
-            "multiple-ethnic-groups": "All occupied households",
-            "nationalities": "All people",
-            "religion": "All people",
-            "passports-held": "All people",
-            "gaelic-language-skills": "All people aged 3 and over",
-            "scots-language-skills": "All people aged 3 and over",
-            "english-language-skills": "All people aged 3 and over",
-            "bsl-skills": "All people aged 3 and over",
-            "main-language": "All people aged 3 and over",
-            "household-size": "All occupied household spaces",
-        }[description]
+        total_column[description]
 
         # Calculate percentages for each column
         for column in df.columns:

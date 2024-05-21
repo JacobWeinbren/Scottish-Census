@@ -2,7 +2,7 @@ import os
 import csv
 import ujson
 import copy
-from dictionary import create_key_mapping, csv_files
+from dictionary import create_key_mapping, csv_files, total_column
 
 
 def load_geojson(path):
@@ -26,10 +26,11 @@ def update_feature(feature, code_key, properties):
         )
 
 
-def process_csv(csv_file, geojson_data, skip_rows, key_mapping):
+def process_csv(csv_file, geojson_data, skip_rows, key_mapping, output_name):
     print(f"Processing CSV file: {csv_file} with skip_rows: {skip_rows}")
     modified_geojson_data = copy.deepcopy(geojson_data)
     properties_by_code = {}
+    total_column_name = total_column[output_name]
 
     with open(csv_file, "r") as file:
         csv_reader = csv.reader(file)
@@ -43,8 +44,14 @@ def process_csv(csv_file, geojson_data, skip_rows, key_mapping):
                 row = [0 if cell == "-" else cell for cell in row]
                 properties = dict(zip(header, row))
                 code = row[0]  # Assuming the first column is always the code
+                total_value = float(properties[total_column_name])
                 properties_by_code[code] = {
-                    key_mapping[k]: properties[k] for k in properties if k != "code"
+                    key_mapping[k]: (
+                        round((float(properties[k]) / total_value * 100), 2)
+                        if k != "code" and str(properties[k]).isdigit()
+                        else properties[k]
+                    )
+                    for k in properties
                 }
 
     print(f"Processing .geojson file for: {csv_file}")
@@ -73,7 +80,7 @@ def main():
 
     for csv_file, skip_rows, output_name in csv_files:
         updated_geojson_data = process_csv(
-            csv_file, geojson_data, skip_rows, key_mapping
+            csv_file, geojson_data, skip_rows, key_mapping, output_name
         )
         save_geojson(
             updated_geojson_data["intersected"],

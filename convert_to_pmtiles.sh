@@ -15,6 +15,7 @@ for dir in "${directories[@]}"; do
         
         # Run Tippecanoe to convert GeoJSON to PMTiles
         tippecanoe --output="$output_file" \
+                   --layer="maplayer" \
                    --no-feature-limit \
                    --no-tile-size-limit \
                    --detect-shared-borders \

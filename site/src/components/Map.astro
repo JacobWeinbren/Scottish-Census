@@ -10,9 +10,7 @@ const categoryNames = Object.keys(categories);
 	class="sm:w-[500px] text-sm w-full flex flex-col gap-2 absolute bottom-10 rounded-md z-10 bg-white p-4 left-1/2 transform -translate-x-1/2"
 >
 	<div>
-		<p class="text-md font-semibold" id="title">
-			Socio-Economic Classification
-		</p>
+		<p class="text-md font-semibold" id="title">Census 2022</p>
 		<p class="mb-2">Scotland</p>
 	</div>
 	<div>
@@ -50,19 +48,23 @@ const categoryNames = Object.keys(categories);
 	import statistics from "../data/statistics.json";
 	import keyMapping from "../data/key_mapping.json";
 	import categoryMapping from "../data/category_mapping.json";
-	import totals from "../data/totals.json";
 	import categories from "../data/categories.json";
 
 	const categoryNames = Object.keys(categories);
 
 	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
 
-	function getColorScale(name) {
-		const { low, median, high } = statistics[name];
-		return chroma
-			.scale(["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"])
-			.domain([low, median, high])
-			.mode("lch");
+	function getColorScale(category, name) {
+		const { low, mean, high } = statistics[category][name];
+		const colorPalette = [
+			"#ca0020",
+			"#f4a582",
+			"#f7f7f7",
+			"#92c5de",
+			"#0571b0",
+		];
+		const domain = [low, mean, high];
+		return chroma.scale(colorPalette).domain(domain).mode("lch");
 	}
 
 	const map = new mapboxgl.Map({
@@ -74,6 +76,7 @@ const categoryNames = Object.keys(categories);
 		zoom: 6,
 		accessToken: MAPBOX_TOKEN,
 		antialias: true,
+		padding: 100,
 	});
 
 	const geocoder = new MapboxGeocoder({
@@ -84,20 +87,24 @@ const categoryNames = Object.keys(categories);
 
 	map.addControl(new mapboxgl.NavigationControl());
 
-	function updateLegend(name) {
-		const { low, high } = statistics[name];
-		const colorScale = getColorScale(name);
-		const gradient = document.getElementById("gradient");
-		gradient.style.background = `linear-gradient(to right, ${colorScale.colors(5).join(", ")})`;
-
-		document.getElementById("min").textContent = `${low.toFixed(2)}%`;
-		document.getElementById("max").textContent = `${high.toFixed(2)}%`;
+	function updateLegend(category, name) {
+		const { low, high } = statistics[category][name];
+		const colorScale = getColorScale(category, name);
+		document.getElementById("gradient").style.background =
+			`linear-gradient(to right, ${colorScale.colors(5).join(", ")})`;
+		document.getElementById("min").textContent = `${low.toFixed(1)}%`;
+		document.getElementById("max").textContent = `${high.toFixed(1)}%`;
 	}
 
-	function loadDataset(name) {
-		const mappedName = categoryMapping[name];
-		const totalKey = totals[mappedName];
-		const colorScale = getColorScale(mappedName);
+	function loadDataset(category, name) {
+		const firstLabelLayerId = map
+			.getStyle()
+			.layers.find((layer) => layer.type === "symbol").id;
+
+		const categoryMapped = categoryMapping[category];
+		const newName = keyMapping[name];
+		const colorScale = getColorScale(categoryMapped, name);
+		const { low, mean, high } = statistics[categoryMapped][name];
 
 		// Remove existing sources and layers if they exist
 		if (map.getLayer("areas")) {
@@ -114,57 +121,96 @@ const categoryNames = Object.keys(categories);
 		map.addSource("areas", {
 			type: "vector",
 			tiles: [
-				"https://map.jacobweinbren.workers.dev/areas/{z}/{x}/{y}.mvt",
+				`https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
 			],
 			minzoom: 0,
 			maxzoom: 22,
 		});
 
-		map.addLayer({
-			id: "areas",
-			type: "fill",
-			source: "areas",
-			"source-layer": "areas",
-			paint: {
-				"fill-color": "rgba(0, 0, 0, 0)",
+		map.addLayer(
+			{
+				id: "areas",
+				type: "fill",
+				source: "areas",
+				"source-layer": "maplayer",
+				paint: {
+					"fill-color": "rgba(0, 0, 0, 0)",
+				},
 			},
-		});
+			firstLabelLayerId
+		);
 
 		map.addSource("intersected", {
 			type: "vector",
 			tiles: [
-				"https://map.jacobweinbren.workers.dev/intersected/{z}/{x}/{y}.mvt",
+				`https://map.jacobweinbren.workers.dev/scottish-intersected-${categoryMapped}/{z}/{x}/{y}.mvt`,
 			],
 			minzoom: 0,
 			maxzoom: 22,
 		});
 
-		map.addLayer({
-			id: "intersected",
-			type: "fill",
-			source: "intersected",
-			"source-layer": "intersected",
-			paint: {
-				"fill-color": [
-					"interpolate",
-					["linear"],
-					[
-						"/",
-						["to-number", ["get", keyMapping[name]]],
-						["to-number", ["get", keyMapping[totalKey]]],
+		const fillColor = [
+			low,
+			colorScale(low).hex(),
+			(low + mean) / 2,
+			colorScale((low + mean) / 2).hex(),
+			mean,
+			colorScale(mean).hex(),
+			(mean + high) / 2,
+			colorScale((mean + high) / 2).hex(),
+			high,
+			colorScale(high).hex(),
+		];
+
+		map.addLayer(
+			{
+				id: "intersected",
+				type: "fill",
+				source: "intersected",
+				"source-layer": "maplayer",
+				paint: {
+					"fill-color": [
+						"interpolate",
+						["linear"],
+						["to-number", ["get", newName]],
+						...fillColor,
 					],
-					...colorScale
-						.domain()
-						.map((d, i) => [d / 100, colorScale.colors(5)[i]]),
-				],
+					"fill-opacity": 1,
+				},
 			},
+			firstLabelLayerId
+		);
+
+		updateLegend(categoryMapped, name);
+
+		map.on("mousemove", "areas", (e) => {
+			const features = map.queryRenderedFeatures(e.point, {
+				layers: ["areas"],
+			});
+
+			if (features.length > 0) {
+				const feature = features[0];
+				const value = feature.properties[newName];
+				document.getElementById("hover").innerHTML =
+					`This area is <b>${value.toFixed(1)}%</b> of the variable <b>${name}</b>`;
+			} else {
+				document.getElementById("hover").textContent =
+					"Hover over a point to see its value.";
+			}
 		});
 
-		updateLegend(mappedName);
+		map.on("mouseleave", "areas", () => {
+			document.getElementById("hover").textContent =
+				"Hover over a point to see its value.";
+		});
 	}
 
-	const categorySelect = document.getElementById("category");
-	const datasetSelect = document.getElementById("dataset");
+	const categorySelect = document.getElementById(
+		"category"
+	) as HTMLSelectElement;
+	const datasetSelect = document.getElementById(
+		"dataset"
+	) as HTMLSelectElement;
 
 	categorySelect.addEventListener("change", (e) => {
 		const category = (e.target as HTMLSelectElement).value;
@@ -175,14 +221,20 @@ const categoryNames = Object.keys(categories);
 			optionElement.textContent = option;
 			datasetSelect.appendChild(optionElement);
 		});
-		loadDataset(categories[category][0]);
+		// Load the first dataset of the newly selected category
+		loadDataset(category, categories[category][0]);
 	});
 
 	datasetSelect.addEventListener("change", (e) => {
 		const name = (e.target as HTMLSelectElement).value;
-		document.getElementById("title").textContent = name;
-		loadDataset(name);
+		const category = categorySelect.value;
+		loadDataset(category, name);
 	});
 
-	map.on("load", () => loadDataset(categories[categoryNames[0]][0]));
+	// Initial load of the map with the first category and dataset
+	map.on("load", () => {
+		const initialCategory = categoryNames[0];
+		const initialName = categories[initialCategory][0];
+		loadDataset(initialCategory, initialName);
+	});
 </script>
