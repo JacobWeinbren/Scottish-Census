@@ -5,42 +5,42 @@
 			"low": 4.11,
 			"high": 28.95,
 			"outlierLow": 0.0,
-			"outlierHigh": 51.76
+			"outlierHigh": 41.57
 		},
 		"16 - 24": {
 			"median": 8.65,
 			"low": 2.7,
 			"high": 19.77,
 			"outlierLow": 0.0,
-			"outlierHigh": 94.74
+			"outlierHigh": 79.17
 		},
 		"25 - 34": {
 			"median": 11.3,
 			"low": 3.31,
 			"high": 29.84,
 			"outlierLow": 0.0,
-			"outlierHigh": 73.77
+			"outlierHigh": 54.5
 		},
 		"35 - 49": {
 			"median": 18.1,
 			"low": 8.97,
 			"high": 29.03,
 			"outlierLow": 0.0,
-			"outlierHigh": 53.09
+			"outlierHigh": 41.04
 		},
 		"50 - 64": {
 			"median": 22.06,
 			"low": 9.28,
 			"high": 33.99,
-			"outlierLow": 0.0,
-			"outlierHigh": 58.33
+			"outlierLow": 0.54,
+			"outlierHigh": 45.94
 		},
 		"65 and over": {
 			"median": 19.7,
 			"low": 3.3,
 			"high": 43.16,
 			"outlierLow": 0.0,
-			"outlierHigh": 100
+			"outlierHigh": 86.28
 		}
 	},
 	"ethnic-group": {
@@ -48,14 +48,14 @@
 			"median": 96.58,
 			"low": 74.11,
 			"high": 100.0,
-			"outlierLow": 11.54,
+			"outlierLow": 31.88,
 			"outlierHigh": 100
 		},
 		"White: White Scottish": {
 			"median": 81.82,
 			"low": 47.37,
 			"high": 95.41,
-			"outlierLow": 7.38,
+			"outlierLow": 17.44,
 			"outlierHigh": 100
 		},
 		"White: Other White British": {
@@ -63,154 +63,154 @@
 			"low": 0.67,
 			"high": 25.87,
 			"outlierLow": 0.0,
-			"outlierHigh": 76.22
+			"outlierHigh": 53.73
 		},
 		"White: White Irish": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 4.26,
 			"outlierLow": 0.0,
-			"outlierHigh": 22.69
+			"outlierHigh": 11.28
 		},
 		"White: Gypsy/ Traveller": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 19.75
+			"outlierHigh": 5.26
 		},
 		"White: White Polish": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 8.18,
 			"outlierLow": 0.0,
-			"outlierHigh": 47.62
+			"outlierHigh": 29.17
 		},
 		"Other White": {
 			"median": 1.55,
 			"low": 0.0,
 			"high": 11.7,
 			"outlierLow": 0.0,
-			"outlierHigh": 45.31
+			"outlierHigh": 27.63
 		},
 		"Mixed or multiple ethnic group": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 4.62,
 			"outlierLow": 0.0,
-			"outlierHigh": 17.5
+			"outlierHigh": 11.86
 		},
 		"Asian, Asian Scottish or Asian British: Total": {
 			"median": 0.93,
 			"low": 0.0,
 			"high": 15.58,
 			"outlierLow": 0.0,
-			"outlierHigh": 81.9
+			"outlierHigh": 55.22
 		},
 		"Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 6.72,
 			"outlierLow": 0.0,
-			"outlierHigh": 76.29
+			"outlierHigh": 47.04
 		},
 		"Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 5.26,
 			"outlierLow": 0.0,
-			"outlierHigh": 81.03
+			"outlierHigh": 21.88
 		},
 		"Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 21.67
+			"outlierHigh": 9.5
 		},
 		"Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 4.27,
 			"outlierLow": 0.0,
-			"outlierHigh": 56.74
+			"outlierHigh": 22.93
 		},
 		"Asian, Asian Scottish or Asian British: Other Asian": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 3.42,
 			"outlierLow": 0.0,
-			"outlierHigh": 24.86
+			"outlierHigh": 14.14
 		},
 		"African: Total": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 6.2,
 			"outlierLow": 0.0,
-			"outlierHigh": 66.43
+			"outlierHigh": 30.54
 		},
 		"African: African, African Scottish or African British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.55,
 			"outlierLow": 0.0,
-			"outlierHigh": 19.4
+			"outlierHigh": 7.82
 		},
 		"African: Other African": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 5.71,
 			"outlierLow": 0.0,
-			"outlierHigh": 65.0
+			"outlierHigh": 27.4
 		},
 		"Caribbean or Black: Total": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.97,
 			"outlierLow": 0.0,
-			"outlierHigh": 14.81
+			"outlierHigh": 5.56
 		},
 		"Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 8.55
+			"outlierHigh": 3.68
 		},
 		"Caribbean or Black: Black, Black Scottish or Black British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 5.94
+			"outlierHigh": 1.79
 		},
 		"Caribbean or Black: Other Caribbean or Black": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.55,
 			"outlierLow": 0.0,
-			"outlierHigh": 14.81
+			"outlierHigh": 4.62
 		},
 		"Other ethnic groups: Total": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 4.98,
 			"outlierLow": 0.0,
-			"outlierHigh": 39.9
+			"outlierHigh": 18.91
 		},
 		"Other ethnic groups: Arab, Arab Scottish or Arab British": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.88,
 			"outlierLow": 0.0,
-			"outlierHigh": 29.9
+			"outlierHigh": 16.19
 		},
 		"Other ethnic groups: Other ethnic group": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 3.03,
 			"outlierLow": 0.0,
-			"outlierHigh": 19.78
+			"outlierHigh": 11.71
 		}
 	},
 	"national-identity": {
@@ -218,57 +218,57 @@
 			"median": 67.91,
 			"low": 39.39,
 			"high": 85.53,
-			"outlierLow": 7.21,
-			"outlierHigh": 100
+			"outlierLow": 16.18,
+			"outlierHigh": 95.41
 		},
 		"British identity only": {
 			"median": 12.7,
 			"low": 3.88,
 			"high": 27.69,
 			"outlierLow": 0.0,
-			"outlierHigh": 57.35
+			"outlierHigh": 44.11
 		},
 		"Scottish and British identities only": {
 			"median": 7.41,
 			"low": 1.37,
 			"high": 17.31,
 			"outlierLow": 0.0,
-			"outlierHigh": 35.96
+			"outlierHigh": 28.23
 		},
 		"Scottish and any other identities": {
 			"median": 1.35,
 			"low": 0.0,
 			"high": 6.54,
 			"outlierLow": 0.0,
-			"outlierHigh": 22.66
+			"outlierHigh": 14.9
 		},
 		"English identity only": {
 			"median": 1.52,
 			"low": 0.0,
 			"high": 7.41,
 			"outlierLow": 0.0,
-			"outlierHigh": 31.71
+			"outlierHigh": 21.17
 		},
 		"Any other combination of UK identities (UK only)": {
 			"median": 0.72,
 			"low": 0.0,
 			"high": 4.48,
 			"outlierLow": 0.0,
-			"outlierHigh": 20.2
+			"outlierHigh": 11.11
 		},
 		"Other identity only (1)": {
 			"median": 3.41,
 			"low": 0.0,
 			"high": 24.05,
 			"outlierLow": 0.0,
-			"outlierHigh": 73.72
+			"outlierHigh": 52.94
 		},
 		"Other identity and at least one UK identity": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 17.54
+			"outlierHigh": 6.8
 		}
 	},
 	"multiple-ethnic-groups": {
@@ -277,35 +277,35 @@
 			"low": 11.63,
 			"high": 67.53,
 			"outlierLow": 0.0,
-			"outlierHigh": 98.91
+			"outlierHigh": 91.14
 		},
 		"All household members have the same ethnic group": {
 			"median": 52.5,
 			"low": 23.08,
 			"high": 75.0,
-			"outlierLow": 0.0,
-			"outlierHigh": 100
+			"outlierLow": 6.19,
+			"outlierHigh": 91.67
 		},
 		"Different identities between the generations only": {
 			"median": 1.16,
 			"low": 0.0,
 			"high": 6.67,
 			"outlierLow": 0.0,
-			"outlierHigh": 25.0
+			"outlierHigh": 15.02
 		},
 		"Different identities within partnerships (whether or not also different identities between generations)": {
 			"median": 8.0,
 			"low": 0.0,
 			"high": 22.86,
 			"outlierLow": 0.0,
-			"outlierHigh": 51.28
+			"outlierHigh": 38.78
 		},
 		"Any other combination of multiple ethnic identities": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 6.56,
 			"outlierLow": 0.0,
-			"outlierHigh": 76.6
+			"outlierHigh": 43.49
 		}
 	},
 	"nationalities": {
@@ -313,14 +313,14 @@
 			"median": 87.6,
 			"low": 63.28,
 			"high": 97.27,
-			"outlierLow": 16.33,
+			"outlierLow": 35.53,
 			"outlierHigh": 100
 		},
 		"Europe: United Kingdom: Total": {
 			"median": 93.33,
 			"low": 67.29,
 			"high": 100.0,
-			"outlierLow": 18.27,
+			"outlierLow": 38.05,
 			"outlierHigh": 100
 		},
 		"Europe: United Kingdom: England": {
@@ -328,20 +328,20 @@
 			"low": 1.02,
 			"high": 25.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 70.24
+			"outlierHigh": 53.7
 		},
 		"Europe: United Kingdom: Northern Ireland": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.98,
 			"outlierLow": 0.0,
-			"outlierHigh": 14.29
+			"outlierHigh": 7.94
 		},
 		"Europe: United Kingdom: Scotland": {
 			"median": 83.13,
 			"low": 51.59,
 			"high": 95.5,
-			"outlierLow": 10.2,
+			"outlierLow": 22.82,
 			"outlierHigh": 100
 		},
 		"Europe: United Kingdom: Wales": {
@@ -349,77 +349,77 @@
 			"low": 0.0,
 			"high": 1.83,
 			"outlierLow": 0.0,
-			"outlierHigh": 11.71
+			"outlierHigh": 5.71
 		},
 		"Europe: United Kingdom: UK part not specified": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 7.69
+			"outlierHigh": 3.59
 		},
 		"Europe: Channel Islands and Isle of Man": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 12.5
+			"outlierHigh": 2.96
 		},
 		"Europe: Republic of Ireland": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.2,
 			"outlierLow": 0.0,
-			"outlierHigh": 14.13
+			"outlierHigh": 6.72
 		},
 		"Europe: Other Europe: EU Countries: Member countries in March 2001": {
 			"median": 0.89,
 			"low": 0.0,
 			"high": 7.08,
 			"outlierLow": 0.0,
-			"outlierHigh": 30.0
+			"outlierHigh": 19.92
 		},
 		"Europe: Other Europe: EU Countries: Accession countries April 2011 to March 2022": {
 			"median": 0.75,
 			"low": 0.0,
 			"high": 9.52,
 			"outlierLow": 0.0,
-			"outlierHigh": 53.52
+			"outlierHigh": 30.11
 		},
 		"Europe: Other Europe: Non EU countries": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.82,
 			"outlierLow": 0.0,
-			"outlierHigh": 16.35
+			"outlierHigh": 7.14
 		},
 		"Africa": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 5.77,
 			"outlierLow": 0.0,
-			"outlierHigh": 62.86
+			"outlierHigh": 24.43
 		},
 		"Middle East and Asia": {
 			"median": 1.04,
 			"low": 0.0,
 			"high": 11.68,
 			"outlierLow": 0.0,
-			"outlierHigh": 69.83
+			"outlierHigh": 37.33
 		},
 		"The Americas and the Caribbean": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 4.12,
 			"outlierLow": 0.0,
-			"outlierHigh": 33.98
+			"outlierHigh": 14.38
 		},
 		"Antarctica and Oceania and Other": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.65,
 			"outlierLow": 0.0,
-			"outlierHigh": 21.41
+			"outlierHigh": 5.64
 		}
 	},
 	"religion": {
@@ -428,84 +428,84 @@
 			"low": 5.46,
 			"high": 38.26,
 			"outlierLow": 0.0,
-			"outlierHigh": 68.22
+			"outlierHigh": 56.52
 		},
 		"Roman Catholic": {
 			"median": 10.26,
 			"low": 1.53,
 			"high": 34.41,
 			"outlierLow": 0.0,
-			"outlierHigh": 83.54
+			"outlierHigh": 63.42
 		},
 		"Other Christian": {
 			"median": 4.29,
 			"low": 0.0,
 			"high": 13.04,
 			"outlierLow": 0.0,
-			"outlierHigh": 44.29
+			"outlierHigh": 29.46
 		},
 		"Buddhist": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.77,
 			"outlierLow": 0.0,
-			"outlierHigh": 31.62
+			"outlierHigh": 6.67
 		},
 		"Hindu": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 3.49,
 			"outlierLow": 0.0,
-			"outlierHigh": 78.45
+			"outlierHigh": 18.99
 		},
 		"Jewish": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.75,
 			"outlierLow": 0.0,
-			"outlierHigh": 32.93
+			"outlierHigh": 6.64
 		},
 		"Muslim": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 10.48,
 			"outlierLow": 0.0,
-			"outlierHigh": 69.59
+			"outlierHigh": 49.12
 		},
 		"Sikh": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.12,
 			"outlierLow": 0.0,
-			"outlierHigh": 20.29
+			"outlierHigh": 9.73
 		},
 		"Pagan": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.08,
 			"outlierLow": 0.0,
-			"outlierHigh": 12.5
+			"outlierHigh": 6.25
 		},
 		"Other religion": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.5,
 			"outlierLow": 0.0,
-			"outlierHigh": 14.81
+			"outlierHigh": 5.76
 		},
 		"No religion": {
 			"median": 51.56,
 			"low": 29.25,
 			"high": 70.79,
-			"outlierLow": 5.86,
-			"outlierHigh": 92.93
+			"outlierLow": 12.89,
+			"outlierHigh": 84.9
 		},
 		"Religion not stated": {
 			"median": 5.65,
 			"low": 0.57,
 			"high": 13.27,
 			"outlierLow": 0.0,
-			"outlierHigh": 40.32
+			"outlierHigh": 24.68
 		}
 	},
 	"passports-held": {
@@ -513,71 +513,71 @@
 			"median": 80.82,
 			"low": 60.47,
 			"high": 94.23,
-			"outlierLow": 26.72,
-			"outlierHigh": 100
+			"outlierLow": 41.26,
+			"outlierHigh": 100.0
 		},
 		"Europe: United Kingdom": {
 			"median": 76.39,
 			"low": 52.38,
 			"high": 92.03,
-			"outlierLow": 19.4,
-			"outlierHigh": 100
+			"outlierLow": 30.0,
+			"outlierHigh": 98.99
 		},
 		"Europe: Ireland": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.94,
 			"outlierLow": 0.0,
-			"outlierHigh": 22.11
+			"outlierHigh": 8.98
 		},
 		"Europe: EU member countries": {
 			"median": 1.99,
 			"low": 0.0,
 			"high": 15.38,
 			"outlierLow": 0.0,
-			"outlierHigh": 65.06
+			"outlierHigh": 38.02
 		},
 		"Europe: Rest of Europe": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.14,
 			"outlierLow": 0.0,
-			"outlierHigh": 16.39
+			"outlierHigh": 6.44
 		},
 		"Africa": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 3.33,
 			"outlierLow": 0.0,
-			"outlierHigh": 54.29
+			"outlierHigh": 18.25
 		},
 		"Middle East and Asia": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 6.25,
 			"outlierLow": 0.0,
-			"outlierHigh": 68.1
+			"outlierHigh": 31.48
 		},
 		"Antarctica and Oceania": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.76,
 			"outlierLow": 0.0,
-			"outlierHigh": 21.41
+			"outlierHigh": 4.17
 		},
 		"No Passport": {
 			"median": 16.91,
 			"low": 3.6,
 			"high": 37.66,
 			"outlierLow": 0.0,
-			"outlierHigh": 70.77
+			"outlierHigh": 57.46
 		},
 		"The Americas and the Caribbean": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.42,
 			"outlierLow": 0.0,
-			"outlierHigh": 24.27
+			"outlierHigh": 11.16
 		}
 	},
 	"gaelic-language-skills": {
@@ -586,48 +586,48 @@
 			"low": 0.0,
 			"high": 3.74,
 			"outlierLow": 0.0,
-			"outlierHigh": 23.81
+			"outlierHigh": 14.96
 		},
 		"Speaks, reads and writes Gaelic": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 3.41,
 			"outlierLow": 0.0,
-			"outlierHigh": 55.42
+			"outlierHigh": 37.21
 		},
 		"Speaks but does not read or write Gaelic": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.87,
 			"outlierLow": 0.0,
-			"outlierHigh": 24.29
+			"outlierHigh": 15.44
 		},
 		"Speaks and reads but does not write Gaelic": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.04,
 			"outlierLow": 0.0,
-			"outlierHigh": 15.38
+			"outlierHigh": 8.54
 		},
 		"Reads but does not speak or write Gaelic": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.37,
 			"outlierLow": 0.0,
-			"outlierHigh": 8.98
+			"outlierHigh": 4.72
 		},
 		"Other combination of skills in Gaelic": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.43,
 			"outlierLow": 0.0,
-			"outlierHigh": 7.81
+			"outlierHigh": 3.25
 		},
 		"No skills in Gaelic": {
 			"median": 98.59,
 			"low": 92.28,
 			"high": 100.0,
-			"outlierLow": 14.56,
+			"outlierLow": 31.69,
 			"outlierHigh": 100
 		}
 	},
@@ -636,50 +636,50 @@
 			"median": 13.41,
 			"low": 5.97,
 			"high": 22.73,
-			"outlierLow": 0.0,
-			"outlierHigh": 44.29
+			"outlierLow": 0.88,
+			"outlierHigh": 33.87
 		},
 		"Speaks, reads and writes Scots": {
 			"median": 22.3,
 			"low": 7.23,
 			"high": 39.8,
-			"outlierLow": 0.0,
-			"outlierHigh": 68.52
+			"outlierLow": 0.9,
+			"outlierHigh": 57.14
 		},
 		"Speaks but does not read or write Scots": {
 			"median": 2.8,
 			"low": 0.0,
 			"high": 8.59,
 			"outlierLow": 0.0,
-			"outlierHigh": 25.23
+			"outlierHigh": 17.32
 		},
 		"Speaks and reads but does not write Scots": {
 			"median": 2.53,
 			"low": 0.0,
 			"high": 7.89,
 			"outlierLow": 0.0,
-			"outlierHigh": 23.38
+			"outlierHigh": 15.49
 		},
 		"Reads but does not speak or write Scots": {
 			"median": 3.06,
 			"low": 0.0,
 			"high": 9.47,
 			"outlierLow": 0.0,
-			"outlierHigh": 27.27
+			"outlierHigh": 18.03
 		},
 		"Other combination of skills in Scots": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 2.01,
 			"outlierLow": 0.0,
-			"outlierHigh": 13.51
+			"outlierHigh": 5.93
 		},
 		"No skills in Scots": {
 			"median": 53.42,
 			"low": 32.84,
 			"high": 72.9,
-			"outlierLow": 5.63,
-			"outlierHigh": 95.06
+			"outlierLow": 14.32,
+			"outlierHigh": 86.24
 		}
 	},
 	"english-language-skills": {
@@ -688,13 +688,13 @@
 			"low": 0.0,
 			"high": 1.98,
 			"outlierLow": 0.0,
-			"outlierHigh": 11.86
+			"outlierHigh": 6.05
 		},
 		"Speaks, reads and writes English": {
 			"median": 95.03,
 			"low": 86.25,
 			"high": 100.0,
-			"outlierLow": 52.99,
+			"outlierLow": 69.92,
 			"outlierHigh": 100
 		},
 		"Speaks but does not read or write English": {
@@ -702,56 +702,56 @@
 			"low": 0.0,
 			"high": 7.06,
 			"outlierLow": 0.0,
-			"outlierHigh": 24.64
+			"outlierHigh": 14.01
 		},
 		"Speaks and reads but does not write English": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 3.33,
 			"outlierLow": 0.0,
-			"outlierHigh": 15.0
+			"outlierHigh": 8.33
 		},
 		"Reads but does not speak or write English": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.08,
 			"outlierLow": 0.0,
-			"outlierHigh": 12.84
+			"outlierHigh": 4.27
 		},
 		"Writes but does not speak or read English": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 5.41
+			"outlierHigh": 2.28
 		},
 		"Reads and writes but does not speak English": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.08,
 			"outlierLow": 0.0,
-			"outlierHigh": 8.57
+			"outlierHigh": 4.82
 		},
 		"Other combinations of skills in English": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.1,
 			"outlierLow": 0.0,
-			"outlierHigh": 7.79
+			"outlierHigh": 4.17
 		},
 		"Limited English skills": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 4.27,
 			"outlierLow": 0.0,
-			"outlierHigh": 21.09
+			"outlierHigh": 14.01
 		},
 		"No skills in English": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.25,
 			"outlierLow": 0.0,
-			"outlierHigh": 14.41
+			"outlierHigh": 5.7
 		}
 	},
 	"bsl-skills": {
@@ -760,13 +760,13 @@
 			"low": 0.0,
 			"high": 6.02,
 			"outlierLow": 0.0,
-			"outlierHigh": 21.67
+			"outlierHigh": 13.39
 		},
 		"Not a BSL user": {
 			"median": 98.18,
 			"low": 93.44,
 			"high": 100.0,
-			"outlierLow": 75.26,
+			"outlierLow": 86.11,
 			"outlierHigh": 100
 		}
 	},
@@ -775,7 +775,7 @@
 			"median": 96.88,
 			"low": 80.0,
 			"high": 100.0,
-			"outlierLow": 38.37,
+			"outlierLow": 54.92,
 			"outlierHigh": 100
 		},
 		"Scots": {
@@ -783,28 +783,28 @@
 			"low": 0.0,
 			"high": 1.83,
 			"outlierLow": 0.0,
-			"outlierHigh": 13.91
+			"outlierHigh": 6.53
 		},
 		"Gaelic": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 31.43
+			"outlierHigh": 12.46
 		},
 		"Sign Language": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 12.66
+			"outlierHigh": 3.47
 		},
 		"Other language": {
 			"median": 2.6,
 			"low": 0.0,
 			"high": 19.51,
 			"outlierLow": 0.0,
-			"outlierHigh": 61.63
+			"outlierHigh": 44.54
 		}
 	},
 	"household-size": {
@@ -813,56 +813,56 @@
 			"low": 11.63,
 			"high": 67.53,
 			"outlierLow": 0.0,
-			"outlierHigh": 98.91
+			"outlierHigh": 91.14
 		},
 		"Two people": {
 			"median": 34.21,
 			"low": 17.11,
 			"high": 52.08,
-			"outlierLow": 0.0,
-			"outlierHigh": 82.86
+			"outlierLow": 4.69,
+			"outlierHigh": 68.42
 		},
 		"Three people": {
 			"median": 13.64,
 			"low": 2.82,
 			"high": 26.79,
 			"outlierLow": 0.0,
-			"outlierHigh": 85.29
+			"outlierHigh": 41.51
 		},
 		"Four people": {
 			"median": 9.72,
 			"low": 0.0,
 			"high": 25.42,
 			"outlierLow": 0.0,
-			"outlierHigh": 66.67
+			"outlierHigh": 47.92
 		},
 		"Five people": {
 			"median": 2.3,
 			"low": 0.0,
 			"high": 10.26,
 			"outlierLow": 0.0,
-			"outlierHigh": 38.71
+			"outlierHigh": 22.58
 		},
 		"Six people": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 4.26,
 			"outlierLow": 0.0,
-			"outlierHigh": 20.41
+			"outlierHigh": 12.5
 		},
 		"Seven people": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 1.85,
 			"outlierLow": 0.0,
-			"outlierHigh": 19.35
+			"outlierHigh": 8.57
 		},
 		"Eight or more people": {
 			"median": 0.0,
 			"low": 0.0,
 			"high": 0.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 18.75
+			"outlierHigh": 6.67
 		}
 	}
 }
