@@ -103,8 +103,13 @@ const categoryNames = Object.keys(categories);
 			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
 
 		const colorScale = getColorScale(category, name, outlierMode);
+		const colors = colorScale.colors(5).map((color, index) => {
+			const value = low + (index * (high - low)) / 4;
+			return value === 0 ? "#ca0020" : color;
+		});
+
 		document.getElementById("gradient").style.background =
-			`linear-gradient(to right, ${colorScale.colors(5).join(", ")})`;
+			`linear-gradient(to right, ${colors.join(", ")})`;
 		document.getElementById("min").textContent = `${low.toFixed(1)}%`;
 		document.getElementById("max").textContent = `${high.toFixed(1)}%`;
 	}
@@ -182,25 +187,21 @@ const categoryNames = Object.keys(categories);
 			colorScale(high).hex(),
 		];
 
-		console.log(fillColor);
-
 		// Ensure the numeric values are in ascending order and unique, and set color for zero values
 		const uniqueSortedFillColor = fillColor
 			.reduce((acc, val, index, arr) => {
 				if (index % 2 === 0) {
-					// Check if it's a numeric value
 					let color = arr[index + 1];
 					if (val === 0) {
-						color = "#ca0020"; // Set color to red if value is zero
+						color = "#ca0020";
 					}
 					if (!acc.find((item) => item[0] === val)) {
-						// Only add if not already added
 						acc.push([val, color]);
 					}
 				}
 				return acc;
 			}, [])
-			.sort((a, b) => a[0] - b[0]); // Sort by numeric values
+			.sort((a, b) => a[0] - b[0]);
 
 		// Flatten the sorted and unique array
 		const flatSortedFillColor = uniqueSortedFillColor.reduce(
