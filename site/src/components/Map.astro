@@ -92,8 +92,10 @@ const categoryNames = Object.keys(categories);
 		const colorScale = getColorScale(category, name);
 		document.getElementById("gradient").style.background =
 			`linear-gradient(to right, ${colorScale.colors(5).join(", ")})`;
-		document.getElementById("min").textContent = `${low.toFixed(1)}%`;
-		document.getElementById("max").textContent = `${high.toFixed(1)}%`;
+		document.getElementById("min").textContent =
+			`${Math.max(0, Math.min(100, low)).toFixed(1)}%`;
+		document.getElementById("max").textContent =
+			`${Math.max(0, Math.min(100, high)).toFixed(1)}%`;
 	}
 
 	function loadDataset(category, name) {
@@ -162,6 +164,19 @@ const categoryNames = Object.keys(categories);
 			colorScale(high).hex(),
 		];
 
+		// Ensure the numeric values are in ascending order
+		const sortedFillColor = [];
+		for (let i = 0; i < fillColor.length; i += 2) {
+			sortedFillColor.push([fillColor[i], fillColor[i + 1]]);
+		}
+		sortedFillColor.sort((a, b) => a[0] - b[0]);
+
+		// Flatten the sorted array
+		const flatSortedFillColor = sortedFillColor.reduce(
+			(acc, val) => acc.concat(val),
+			[]
+		);
+		
 		map.addLayer(
 			{
 				id: "intersected",
@@ -173,7 +188,7 @@ const categoryNames = Object.keys(categories);
 						"interpolate",
 						["linear"],
 						["to-number", ["get", newName]],
-						...fillColor,
+						...flatSortedFillColor,
 					],
 					"fill-opacity": 1,
 				},
