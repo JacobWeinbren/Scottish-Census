@@ -16,28 +16,26 @@ def calculate_statistics(file_path, description, skip_rows):
 
         # Replace '-' with 0 and convert all columns to numeric, errors='coerce' will convert non-convertible values to NaN
         df = df.replace("-", 0).apply(pd.to_numeric, errors="coerce")
-
         # Get the total column based on the description
-        total_column[description]
+        total_column_name = total_column[description]
 
         # Calculate percentages for each column
         for column in df.columns:
-            if column != total_column:
-                df[column] = df[column] / df[total_column] * 100
+            if column != total_column_name:
+                df[column] = df[column] / df[total_column_name] * 100
 
         # Calculate and store statistics for each column
         file_results = {}
         for column in df.columns:
-            if column != total_column:
-                mean = df[column].mean()
-                std_dev = df[column].std()
-                mean_minus_std = max(mean - std_dev, 0)
-                mean_plus_std = mean + std_dev
+            if column != total_column_name:
+                median = df[column].median()
+                q1 = df[column].quantile(0.02)
+                q3 = df[column].quantile(0.98)
 
                 file_results[column] = {
-                    "mean": round(mean, 2),
-                    "low": round(mean_minus_std, 2),
-                    "high": round(mean_plus_std, 2),
+                    "median": round(median, 2),
+                    "low": round(q1, 2),
+                    "high": round(q3, 2),
                 }
 
         results[description] = file_results

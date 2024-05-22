@@ -1,628 +1,628 @@
 {
 	"ages": {
 		"0 - 15": {
-			"mean": 15.74,
-			"low": 8.32,
-			"high": 23.16
+			"median": 15.38,
+			"low": 1.41,
+			"high": 32.65
 		},
 		"16 - 24": {
-			"mean": 9.96,
-			"low": 2.41,
-			"high": 17.51
+			"median": 8.65,
+			"low": 1.35,
+			"high": 31.03
 		},
 		"25 - 34": {
-			"mean": 13.04,
-			"low": 4.75,
-			"high": 21.34
+			"median": 11.3,
+			"low": 1.85,
+			"high": 37.88
 		},
 		"35 - 49": {
-			"mean": 18.4,
-			"low": 12.29,
-			"high": 24.51
+			"median": 18.1,
+			"low": 6.47,
+			"high": 32.31
 		},
 		"50 - 64": {
-			"mean": 21.94,
-			"low": 14.49,
-			"high": 29.38
+			"median": 22.06,
+			"low": 5.96,
+			"high": 37.14
 		},
 		"65 and over": {
-			"mean": 20.93,
-			"low": 8.27,
-			"high": 33.59
+			"median": 19.7,
+			"low": 1.45,
+			"high": 52.3
 		}
 	},
 	"ethnic-group": {
 		"White: Total": {
-			"mean": 93.29,
-			"low": 83.96,
-			"high": 102.61
+			"median": 96.58,
+			"low": 64.43,
+			"high": 100.8
 		},
 		"White: White Scottish": {
-			"mean": 78.16,
-			"low": 63.34,
-			"high": 92.99
+			"median": 81.82,
+			"low": 37.5,
+			"high": 97.4
 		},
 		"White: Other White British": {
-			"mean": 9.3,
-			"low": 1.16,
-			"high": 17.43
+			"median": 7.03,
+			"low": 0.0,
+			"high": 33.0
 		},
 		"White: White Irish": {
-			"mean": 1.04,
-			"low": 0,
-			"high": 2.62
+			"median": 0.0,
+			"low": 0.0,
+			"high": 5.71
 		},
 		"White: Gypsy/ Traveller": {
-			"mean": 0.06,
-			"low": 0,
-			"high": 0.49
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.07
 		},
 		"White: White Polish": {
-			"mean": 1.72,
-			"low": 0,
-			"high": 5.1
+			"median": 0.0,
+			"low": 0.0,
+			"high": 12.4
 		},
 		"Other White": {
-			"mean": 3.01,
-			"low": 0,
-			"high": 7.17
+			"median": 1.55,
+			"low": 0.0,
+			"high": 16.19
 		},
 		"Mixed or multiple ethnic group": {
-			"mean": 1.1,
-			"low": 0,
-			"high": 2.82
+			"median": 0.0,
+			"low": 0.0,
+			"high": 6.19
 		},
 		"Asian, Asian Scottish or Asian British: Total": {
-			"mean": 3.54,
-			"low": 0,
-			"high": 9.86
+			"median": 0.93,
+			"low": 0.0,
+			"high": 23.4
 		},
 		"Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British": {
-			"mean": 1.22,
-			"low": 0,
-			"high": 5.13
+			"median": 0.0,
+			"low": 0.0,
+			"high": 12.33
 		},
 		"Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British": {
-			"mean": 0.9,
-			"low": 0,
-			"high": 3.29
+			"median": 0.0,
+			"low": 0.0,
+			"high": 8.4
 		},
 		"Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British": {
-			"mean": 0.13,
-			"low": 0,
-			"high": 0.92
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.48
 		},
 		"Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British": {
-			"mean": 0.72,
-			"low": 0,
-			"high": 2.83
+			"median": 0.0,
+			"low": 0.0,
+			"high": 6.93
 		},
 		"Asian, Asian Scottish or Asian British: Other Asian": {
-			"mean": 0.57,
-			"low": 0,
-			"high": 2.07
+			"median": 0.0,
+			"low": 0.0,
+			"high": 5.38
 		},
 		"African: Total": {
-			"mean": 1.06,
-			"low": 0,
-			"high": 4.1
+			"median": 0.0,
+			"low": 0.0,
+			"high": 10.99
 		},
 		"African: African, African Scottish or African British": {
-			"mean": 0.11,
-			"low": 0,
-			"high": 0.74
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.9
 		},
 		"African: Other African": {
-			"mean": 0.95,
-			"low": 0,
-			"high": 3.73
+			"median": 0.0,
+			"low": 0.0,
+			"high": 10.0
 		},
 		"Caribbean or Black: Total": {
-			"mean": 0.12,
-			"low": 0,
-			"high": 0.63
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.74
 		},
 		"Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British": {
-			"mean": 0.04,
-			"low": 0,
-			"high": 0.32
+			"median": 0.0,
+			"low": 0.0,
+			"high": 0.85
 		},
 		"Caribbean or Black: Black, Black Scottish or Black British": {
-			"mean": 0.01,
-			"low": 0,
-			"high": 0.13
+			"median": 0.0,
+			"low": 0.0,
+			"high": 0.0
 		},
 		"Caribbean or Black: Other Caribbean or Black": {
-			"mean": 0.07,
-			"low": 0,
-			"high": 0.46
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.24
 		},
 		"Other ethnic groups: Total": {
-			"mean": 0.88,
-			"low": 0,
-			"high": 3.03
+			"median": 0.0,
+			"low": 0.0,
+			"high": 7.76
 		},
 		"Other ethnic groups: Arab, Arab Scottish or Arab British": {
-			"mean": 0.4,
-			"low": 0,
-			"high": 1.88
+			"median": 0.0,
+			"low": 0.0,
+			"high": 5.31
 		},
 		"Other ethnic groups: Other ethnic group": {
-			"mean": 0.49,
-			"low": 0,
-			"high": 1.79
+			"median": 0.0,
+			"low": 0.0,
+			"high": 4.84
 		}
 	},
 	"national-identity": {
 		"Scottish identity only": {
-			"mean": 65.92,
-			"low": 51.89,
-			"high": 79.94
+			"median": 67.91,
+			"low": 31.98,
+			"high": 88.71
 		},
 		"British identity only": {
-			"mean": 13.84,
-			"low": 6.46,
-			"high": 21.23
+			"median": 12.7,
+			"low": 2.38,
+			"high": 32.31
 		},
 		"Scottish and British identities only": {
-			"mean": 8.15,
-			"low": 3.25,
-			"high": 13.06
+			"median": 7.41,
+			"low": 0.0,
+			"high": 20.29
 		},
 		"Scottish and any other identities": {
-			"mean": 2.01,
-			"low": 0,
-			"high": 4.31
+			"median": 1.35,
+			"low": 0.0,
+			"high": 8.42
 		},
 		"English identity only": {
-			"mean": 2.28,
-			"low": 0,
-			"high": 5.01
+			"median": 1.52,
+			"low": 0.0,
+			"high": 10.29
 		},
 		"Any other combination of UK identities (UK only)": {
-			"mean": 1.2,
-			"low": 0,
-			"high": 2.83
+			"median": 0.72,
+			"low": 0.0,
+			"high": 5.88
 		},
 		"Other identity only (1)": {
-			"mean": 6.28,
-			"low": 0,
-			"high": 14.35
+			"median": 3.41,
+			"low": 0.0,
+			"high": 31.93
 		},
 		"Other identity and at least one UK identity": {
-			"mean": 0.31,
-			"low": 0,
-			"high": 1.15
+			"median": 0.0,
+			"low": 0.0,
+			"high": 3.05
 		}
 	},
 	"multiple-ethnic-groups": {
 		"One person household": {
-			"mean": 36.36,
-			"low": 19.54,
-			"high": 53.17
+			"median": 34.38,
+			"low": 7.41,
+			"high": 75.75
 		},
 		"All household members have the same ethnic group": {
-			"mean": 51.15,
-			"low": 35.44,
-			"high": 66.86
+			"median": 52.5,
+			"low": 17.11,
+			"high": 80.0
 		},
 		"Different identities between the generations only": {
-			"mean": 1.8,
-			"low": 0,
-			"high": 4.21
+			"median": 1.16,
+			"low": 0.0,
+			"high": 8.57
 		},
 		"Different identities within partnerships (whether or not also different identities between generations)": {
-			"mean": 9.28,
-			"low": 2.25,
-			"high": 16.31
+			"median": 8.0,
+			"low": 0.0,
+			"high": 27.27
 		},
 		"Any other combination of multiple ethnic identities": {
-			"mean": 1.48,
-			"low": 0,
-			"high": 5.29
+			"median": 0.0,
+			"low": 0.0,
+			"high": 11.86
 		}
 	},
 	"nationalities": {
 		"Europe: Total": {
-			"mean": 84.86,
-			"low": 74.07,
-			"high": 95.64
+			"median": 87.6,
+			"low": 55.64,
+			"high": 98.75
 		},
 		"Europe: United Kingdom: Total": {
-			"mean": 90.03,
-			"low": 79.79,
-			"high": 100.27
+			"median": 93.33,
+			"low": 58.55,
+			"high": 100.0
 		},
 		"Europe: United Kingdom: England": {
-			"mean": 9.26,
-			"low": 1.38,
-			"high": 17.14
+			"median": 7.06,
+			"low": 0.0,
+			"high": 32.06
 		},
 		"Europe: United Kingdom: Northern Ireland": {
-			"mean": 0.67,
-			"low": 0,
-			"high": 1.8
+			"median": 0.0,
+			"low": 0.0,
+			"high": 4.08
 		},
 		"Europe: United Kingdom: Scotland": {
-			"mean": 79.73,
-			"low": 66.09,
-			"high": 93.37
+			"median": 83.13,
+			"low": 42.5,
+			"high": 97.22
 		},
 		"Europe: United Kingdom: Wales": {
-			"mean": 0.33,
-			"low": 0,
-			"high": 1.08
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.74
 		},
 		"Europe: United Kingdom: UK part not specified": {
-			"mean": 0.03,
-			"low": 0,
-			"high": 0.29
+			"median": 0.0,
+			"low": 0.0,
+			"high": 0.68
 		},
 		"Europe: Channel Islands and Isle of Man": {
-			"mean": 0.04,
-			"low": 0,
-			"high": 0.29
+			"median": 0.0,
+			"low": 0.0,
+			"high": 0.83
 		},
 		"Europe: Republic of Ireland": {
-			"mean": 0.41,
-			"low": 0,
-			"high": 1.29
+			"median": 0.0,
+			"low": 0.0,
+			"high": 3.17
 		},
 		"Europe: Other Europe: EU Countries: Member countries in March 2001": {
-			"mean": 1.78,
-			"low": 0,
-			"high": 4.44
+			"median": 0.89,
+			"low": 0.0,
+			"high": 10.16
 		},
 		"Europe: Other Europe: EU Countries: Accession countries April 2011 to March 2022": {
-			"mean": 2.26,
-			"low": 0,
-			"high": 6.03
+			"median": 0.75,
+			"low": 0.0,
+			"high": 14.18
 		},
 		"Europe: Other Europe: Non EU countries": {
-			"mean": 0.27,
-			"low": 0,
-			"high": 1.08
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.94
 		},
 		"Africa": {
-			"mean": 1.31,
-			"low": 0,
-			"high": 3.87
+			"median": 0.0,
+			"low": 0.0,
+			"high": 9.21
 		},
 		"Middle East and Asia": {
-			"mean": 2.75,
-			"low": 0,
-			"high": 7.37
+			"median": 1.04,
+			"low": 0.0,
+			"high": 17.65
 		},
 		"The Americas and the Caribbean": {
-			"mean": 0.88,
-			"low": 0,
-			"high": 2.54
+			"median": 0.0,
+			"low": 0.0,
+			"high": 6.02
 		},
 		"Antarctica and Oceania and Other": {
-			"mean": 0.26,
-			"low": 0,
-			"high": 0.96
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.56
 		}
 	},
 	"religion": {
 		"Church of Scotland": {
-			"mean": 20.69,
-			"low": 10.68,
-			"high": 30.71
+			"median": 20.0,
+			"low": 3.23,
+			"high": 43.37
 		},
 		"Roman Catholic": {
-			"mean": 13.32,
-			"low": 2.77,
-			"high": 23.87
+			"median": 10.26,
+			"low": 0.0,
+			"high": 41.79
 		},
 		"Other Christian": {
-			"mean": 5.11,
-			"low": 0.83,
-			"high": 9.39
+			"median": 4.29,
+			"low": 0.0,
+			"high": 16.49
 		},
 		"Buddhist": {
-			"mean": 0.28,
-			"low": 0,
-			"high": 1.08
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.9
 		},
 		"Hindu": {
-			"mean": 0.51,
-			"low": 0,
-			"high": 2.32
+			"median": 0.0,
+			"low": 0.0,
+			"high": 5.88
 		},
 		"Jewish": {
-			"mean": 0.1,
-			"low": 0,
-			"high": 0.69
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.56
 		},
 		"Muslim": {
-			"mean": 2.07,
-			"low": 0,
-			"high": 6.92
+			"median": 0.0,
+			"low": 0.0,
+			"high": 17.07
 		},
 		"Sikh": {
-			"mean": 0.19,
-			"low": 0,
-			"high": 1.09
+			"median": 0.0,
+			"low": 0.0,
+			"high": 3.33
 		},
 		"Pagan": {
-			"mean": 0.37,
-			"low": 0,
-			"high": 1.2
+			"median": 0.0,
+			"low": 0.0,
+			"high": 3.03
 		},
 		"Other religion": {
-			"mean": 0.24,
-			"low": 0,
-			"high": 0.89
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.38
 		},
 		"No religion": {
-			"mean": 50.96,
-			"low": 38.33,
-			"high": 63.6
+			"median": 51.56,
+			"low": 23.98,
+			"high": 75.0
 		},
 		"Religion not stated": {
-			"mean": 6.16,
-			"low": 2.26,
-			"high": 10.07
+			"median": 5.65,
+			"low": 0.0,
+			"high": 15.89
 		}
 	},
 	"passports-held": {
 		"Europe: Total": {
-			"mean": 79.57,
-			"low": 69.05,
-			"high": 90.1
+			"median": 80.82,
+			"low": 54.76,
+			"high": 96.15
 		},
 		"Europe: United Kingdom": {
-			"mean": 74.89,
-			"low": 62.61,
-			"high": 87.16
+			"median": 76.39,
+			"low": 46.03,
+			"high": 94.29
 		},
 		"Europe: Ireland": {
-			"mean": 0.56,
-			"low": 0,
-			"high": 1.73
+			"median": 0.0,
+			"low": 0.0,
+			"high": 4.32
 		},
 		"Europe: EU member countries": {
-			"mean": 3.98,
-			"low": 0,
-			"high": 9.51
+			"median": 1.99,
+			"low": 0.0,
+			"high": 21.26
 		},
 		"Europe: Rest of Europe": {
-			"mean": 0.16,
-			"low": 0,
-			"high": 0.79
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.22
 		},
 		"Africa": {
-			"mean": 0.53,
-			"low": 0,
-			"high": 2.25
+			"median": 0.0,
+			"low": 0.0,
+			"high": 5.99
 		},
 		"Middle East and Asia": {
-			"mean": 1.17,
-			"low": 0,
-			"high": 4.2
+			"median": 0.0,
+			"low": 0.0,
+			"high": 10.81
 		},
 		"Antarctica and Oceania": {
-			"mean": 0.09,
-			"low": 0,
-			"high": 0.49
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.37
 		},
 		"No Passport": {
-			"mean": 18.23,
-			"low": 7.56,
-			"high": 28.9
+			"median": 16.91,
+			"low": 1.96,
+			"high": 43.42
 		},
 		"The Americas and the Caribbean": {
-			"mean": 0.41,
-			"low": 0,
-			"high": 1.55
+			"median": 0.0,
+			"low": 0.0,
+			"high": 4.04
 		}
 	},
 	"gaelic-language-skills": {
 		"Understands but does not speak, read or write Gaelic": {
-			"mean": 0.89,
-			"low": 0,
-			"high": 2.5
+			"median": 0.0,
+			"low": 0.0,
+			"high": 5.41
 		},
 		"Speaks, reads and writes Gaelic": {
-			"mean": 0.84,
-			"low": 0,
-			"high": 3.4
+			"median": 0.0,
+			"low": 0.0,
+			"high": 5.61
 		},
 		"Speaks but does not read or write Gaelic": {
-			"mean": 0.35,
-			"low": 0,
-			"high": 1.52
+			"median": 0.0,
+			"low": 0.0,
+			"high": 3.03
 		},
 		"Speaks and reads but does not write Gaelic": {
-			"mean": 0.15,
-			"low": 0,
-			"high": 0.79
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.8
 		},
 		"Reads but does not speak or write Gaelic": {
-			"mean": 0.2,
-			"low": 0,
-			"high": 0.77
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.11
 		},
 		"Other combination of skills in Gaelic": {
-			"mean": 0.06,
-			"low": 0,
-			"high": 0.37
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.14
 		},
 		"No skills in Gaelic": {
-			"mean": 97.51,
-			"low": 92.33,
-			"high": 102.69
+			"median": 98.59,
+			"low": 88.75,
+			"high": 101.71
 		}
 	},
 	"scots-language-skills": {
 		"Understands but does not speak, read or write Scots": {
-			"mean": 13.77,
-			"low": 8.64,
-			"high": 18.89
+			"median": 13.41,
+			"low": 4.55,
+			"high": 25.42
 		},
 		"Speaks, reads and writes Scots": {
-			"mean": 22.69,
-			"low": 12.72,
-			"high": 32.67
+			"median": 22.3,
+			"low": 4.88,
+			"high": 44.32
 		},
 		"Speaks but does not read or write Scots": {
-			"mean": 3.31,
-			"low": 0.53,
-			"high": 6.1
+			"median": 2.8,
+			"low": 0.0,
+			"high": 10.53
 		},
 		"Speaks and reads but does not write Scots": {
-			"mean": 2.99,
-			"low": 0.42,
-			"high": 5.56
+			"median": 2.53,
+			"low": 0.0,
+			"high": 9.72
 		},
 		"Reads but does not speak or write Scots": {
-			"mean": 3.64,
-			"low": 0.56,
-			"high": 6.72
+			"median": 3.06,
+			"low": 0.0,
+			"high": 11.69
 		},
 		"Other combination of skills in Scots": {
-			"mean": 0.39,
-			"low": 0,
-			"high": 1.18
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.82
 		},
 		"No skills in Scots": {
-			"mean": 53.21,
-			"low": 41.04,
-			"high": 65.38
+			"median": 53.42,
+			"low": 27.27,
+			"high": 76.92
 		}
 	},
 	"english-language-skills": {
 		"Understands spoken English only": {
-			"mean": 0.36,
-			"low": 0,
-			"high": 1.16
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.88
 		},
 		"Speaks, reads and writes English": {
-			"mean": 94.26,
-			"low": 89.89,
-			"high": 98.63
+			"median": 95.03,
+			"low": 82.35,
+			"high": 100.0
 		},
 		"Speaks but does not read or write English": {
-			"mean": 2.93,
-			"low": 0.66,
-			"high": 5.21
+			"median": 2.63,
+			"low": 0.0,
+			"high": 8.6
 		},
 		"Speaks and reads but does not write English": {
-			"mean": 0.89,
-			"low": 0,
-			"high": 2.13
+			"median": 0.0,
+			"low": 0.0,
+			"high": 4.46
 		},
 		"Reads but does not speak or write English": {
-			"mean": 0.13,
-			"low": 0,
-			"high": 0.6
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.72
 		},
 		"Writes but does not speak or read English": {
-			"mean": 0.02,
-			"low": 0,
-			"high": 0.19
+			"median": 0.0,
+			"low": 0.0,
+			"high": 0.0
 		},
 		"Reads and writes but does not speak English": {
-			"mean": 0.14,
-			"low": 0,
-			"high": 0.64
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.85
 		},
 		"Other combinations of skills in English": {
-			"mean": 0.14,
-			"low": 0,
-			"high": 0.61
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.72
 		},
 		"Limited English skills": {
-			"mean": 0.98,
-			"low": 0,
-			"high": 2.68
+			"median": 0.0,
+			"low": 0.0,
+			"high": 6.15
 		},
 		"No skills in English": {
-			"mean": 0.17,
-			"low": 0,
-			"high": 0.77
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.15
 		}
 	},
 	"bsl-skills": {
 		"BSL User": {
-			"mean": 2.22,
-			"low": 0.2,
-			"high": 4.25
+			"median": 1.84,
+			"low": 0.0,
+			"high": 7.5
 		},
 		"Not a BSL user": {
-			"mean": 97.78,
-			"low": 95.43,
-			"high": 100.14
+			"median": 98.18,
+			"low": 91.8,
+			"high": 101.83
 		}
 	},
 	"main-language": {
 		"English": {
-			"mean": 94.59,
-			"low": 87.68,
-			"high": 101.51
+			"median": 96.88,
+			"low": 73.2,
+			"high": 101.05
 		},
 		"Scots": {
-			"mean": 0.26,
-			"low": 0,
-			"high": 1.04
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.88
 		},
 		"Gaelic": {
-			"mean": 0.07,
-			"low": 0,
-			"high": 0.79
+			"median": 0.0,
+			"low": 0.0,
+			"high": 0.83
 		},
 		"Sign Language": {
-			"mean": 0.05,
-			"low": 0,
-			"high": 0.37
+			"median": 0.0,
+			"low": 0.0,
+			"high": 1.04
 		},
 		"Other language": {
-			"mean": 5.03,
-			"low": 0,
-			"high": 11.79
+			"median": 2.6,
+			"low": 0.0,
+			"high": 26.44
 		}
 	},
 	"household-size": {
 		"One person": {
-			"mean": 36.36,
-			"low": 19.54,
-			"high": 53.17
+			"median": 34.38,
+			"low": 7.41,
+			"high": 75.75
 		},
 		"Two people": {
-			"mean": 34.37,
-			"low": 23.78,
-			"high": 44.96
+			"median": 34.21,
+			"low": 13.33,
+			"high": 56.52
 		},
 		"Three people": {
-			"mean": 14.11,
-			"low": 6.84,
-			"high": 21.38
+			"median": 13.64,
+			"low": 0.0,
+			"high": 30.56
 		},
 		"Four people": {
-			"mean": 10.89,
-			"low": 3.1,
-			"high": 18.67
+			"median": 9.72,
+			"low": 0.0,
+			"high": 31.53
 		},
 		"Five people": {
-			"mean": 3.23,
-			"low": 0,
-			"high": 6.84
+			"median": 2.3,
+			"low": 0.0,
+			"high": 12.9
 		},
 		"Six people": {
-			"mean": 0.79,
-			"low": 0,
-			"high": 2.46
+			"median": 0.0,
+			"low": 0.0,
+			"high": 6.12
 		},
 		"Seven people": {
-			"mean": 0.21,
-			"low": 0,
-			"high": 1.08
+			"median": 0.0,
+			"low": 0.0,
+			"high": 3.17
 		},
 		"Eight or more people": {
-			"mean": 0.1,
-			"low": 0,
-			"high": 0.71
+			"median": 0.0,
+			"low": 0.0,
+			"high": 2.08
 		}
 	}
 }

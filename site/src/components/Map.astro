@@ -55,7 +55,7 @@ const categoryNames = Object.keys(categories);
 	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
 
 	function getColorScale(category, name) {
-		const { low, mean, high } = statistics[category][name];
+		const { low, high } = statistics[category][name];
 		const colorPalette = [
 			"#ca0020",
 			"#f4a582",
@@ -63,7 +63,7 @@ const categoryNames = Object.keys(categories);
 			"#92c5de",
 			"#0571b0",
 		];
-		const domain = [low, mean, high];
+		const domain = [low, (low + high) / 2, high];
 		return chroma.scale(colorPalette).domain(domain).mode("lch");
 	}
 
@@ -104,7 +104,7 @@ const categoryNames = Object.keys(categories);
 		const categoryMapped = categoryMapping[category];
 		const newName = keyMapping[name];
 		const colorScale = getColorScale(categoryMapped, name);
-		const { low, mean, high } = statistics[categoryMapped][name];
+		const { low, median, high } = statistics[categoryMapped][name];
 
 		// Remove existing sources and layers if they exist
 		if (map.getLayer("areas")) {
@@ -152,12 +152,12 @@ const categoryNames = Object.keys(categories);
 		const fillColor = [
 			low,
 			colorScale(low).hex(),
-			(low + mean) / 2,
-			colorScale((low + mean) / 2).hex(),
-			mean,
-			colorScale(mean).hex(),
-			(mean + high) / 2,
-			colorScale((mean + high) / 2).hex(),
+			(low + high) / 4,
+			colorScale((low + high) / 4).hex(),
+			(low + high) / 2,
+			colorScale((low + high) / 2).hex(),
+			(low + high) * 0.75,
+			colorScale((low + high) * 0.75).hex(),
 			high,
 			colorScale(high).hex(),
 		];
@@ -192,7 +192,7 @@ const categoryNames = Object.keys(categories);
 				const feature = features[0];
 				const value = feature.properties[newName];
 				document.getElementById("hover").innerHTML =
-					`This area is <b>${value.toFixed(1)}%</b> of the variable <b>${name}</b>`;
+					`This area is <b>${parseFloat(value).toFixed(1)}%</b> of the variable <b>${name}</b>`;
 			} else {
 				document.getElementById("hover").textContent =
 					"Hover over a point to see its value.";
