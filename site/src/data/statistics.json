@@ -40,7 +40,7 @@
 			"low": 3.3,
 			"high": 43.16,
 			"outlierLow": 0.0,
-			"outlierHigh": 103.85
+			"outlierHigh": 100
 		}
 	},
 	"ethnic-group": {
@@ -49,14 +49,14 @@
 			"low": 74.11,
 			"high": 100.0,
 			"outlierLow": 11.54,
-			"outlierHigh": 108.47
+			"outlierHigh": 100
 		},
 		"White: White Scottish": {
 			"median": 81.82,
 			"low": 47.37,
 			"high": 95.41,
 			"outlierLow": 7.38,
-			"outlierHigh": 109.09
+			"outlierHigh": 100
 		},
 		"White: Other White British": {
 			"median": 7.03,
@@ -219,7 +219,7 @@
 			"low": 39.39,
 			"high": 85.53,
 			"outlierLow": 7.21,
-			"outlierHigh": 101.64
+			"outlierHigh": 100
 		},
 		"British identity only": {
 			"median": 12.7,
@@ -284,7 +284,7 @@
 			"low": 23.08,
 			"high": 75.0,
 			"outlierLow": 0.0,
-			"outlierHigh": 105.88
+			"outlierHigh": 100
 		},
 		"Different identities between the generations only": {
 			"median": 1.16,
@@ -314,14 +314,14 @@
 			"low": 63.28,
 			"high": 97.27,
 			"outlierLow": 16.33,
-			"outlierHigh": 108.45
+			"outlierHigh": 100
 		},
 		"Europe: United Kingdom: Total": {
 			"median": 93.33,
 			"low": 67.29,
 			"high": 100.0,
 			"outlierLow": 18.27,
-			"outlierHigh": 110.34
+			"outlierHigh": 100
 		},
 		"Europe: United Kingdom: England": {
 			"median": 7.06,
@@ -342,7 +342,7 @@
 			"low": 51.59,
 			"high": 95.5,
 			"outlierLow": 10.2,
-			"outlierHigh": 109.09
+			"outlierHigh": 100
 		},
 		"Europe: United Kingdom: Wales": {
 			"median": 0.0,
@@ -514,14 +514,14 @@
 			"low": 60.47,
 			"high": 94.23,
 			"outlierLow": 26.72,
-			"outlierHigh": 105.41
+			"outlierHigh": 100
 		},
 		"Europe: United Kingdom": {
 			"median": 76.39,
 			"low": 52.38,
 			"high": 92.03,
 			"outlierLow": 19.4,
-			"outlierHigh": 102.53
+			"outlierHigh": 100
 		},
 		"Europe: Ireland": {
 			"median": 0.0,
@@ -628,7 +628,7 @@
 			"low": 92.28,
 			"high": 100.0,
 			"outlierLow": 14.56,
-			"outlierHigh": 107.79
+			"outlierHigh": 100
 		}
 	},
 	"scots-language-skills": {
@@ -695,7 +695,7 @@
 			"low": 86.25,
 			"high": 100.0,
 			"outlierLow": 52.99,
-			"outlierHigh": 109.68
+			"outlierHigh": 100
 		},
 		"Speaks but does not read or write English": {
 			"median": 2.63,
@@ -767,7 +767,7 @@
 			"low": 93.44,
 			"high": 100.0,
 			"outlierLow": 75.26,
-			"outlierHigh": 110.53
+			"outlierHigh": 100
 		}
 	},
 	"main-language": {
@@ -776,7 +776,7 @@
 			"low": 80.0,
 			"high": 100.0,
 			"outlierLow": 38.37,
-			"outlierHigh": 108.82
+			"outlierHigh": 100
 		},
 		"Scots": {
 			"median": 0.0,

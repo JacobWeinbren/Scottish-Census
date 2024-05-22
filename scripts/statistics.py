@@ -32,10 +32,10 @@ def calculate_statistics(file_path, description, skip_rows):
 
                 file_results[column] = {
                     "median": round(median, 2),
-                    "low": round(df[column].quantile(0.05), 2),
-                    "high": round(df[column].quantile(0.95), 2),
-                    "outlierLow": round(df[column].quantile(0), 2),
-                    "outlierHigh": round(df[column].quantile(1), 2),
+                    "low": min(max(round(df[column].quantile(0.05), 2), 0), 100),
+                    "high": min(max(round(df[column].quantile(0.95), 2), 0), 100),
+                    "outlierLow": min(max(round(df[column].quantile(0), 2), 0), 100),
+                    "outlierHigh": min(max(round(df[column].quantile(1), 2), 0), 100),
                 }
 
         results[description] = file_results
