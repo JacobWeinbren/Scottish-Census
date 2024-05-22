@@ -14,6 +14,13 @@ const categoryNames = Object.keys(categories);
 		<p class="mb-2">Scotland</p>
 	</div>
 	<div>
+		<div class="w-full h-4 rounded" id="gradient"></div>
+		<div class="flex justify-between">
+			<span id="min"></span>
+			<span id="max"></span>
+		</div>
+	</div>
+	<div>
 		<select id="category" class="w-full p-2 rounded border">
 			{
 				categoryNames.map((category) => (
@@ -21,8 +28,7 @@ const categoryNames = Object.keys(categories);
 				))
 			}
 		</select>
-	</div>
-	<div>
+
 		<select id="dataset" class="w-full p-2 rounded border">
 			{
 				categories[categoryNames[0]].map((option) => (
@@ -32,11 +38,10 @@ const categoryNames = Object.keys(categories);
 		</select>
 	</div>
 	<div>
-		<div class="w-full h-4 rounded" id="gradient"></div>
-		<div class="flex justify-between">
-			<span id="min"></span>
-			<span id="max"></span>
-		</div>
+		<select id="outlierSelect" class="w-full p-2 rounded border">
+			<option value="normal">Normal Range</option>
+			<option value="outliers">Include Outliers</option>
+		</select>
 	</div>
 	<div id="hover">Hover over a point to see its value.</div>
 </div>
@@ -54,8 +59,12 @@ const categoryNames = Object.keys(categories);
 
 	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
 
-	function getColorScale(category, name) {
-		const { low, high } = statistics[category][name];
+	function getColorScale(category, name, outlierMode) {
+		const stats = statistics[category][name];
+		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
+		const high =
+			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
+
 		const colorPalette = [
 			"#ca0020",
 			"#f4a582",
@@ -87,15 +96,17 @@ const categoryNames = Object.keys(categories);
 
 	map.addControl(new mapboxgl.NavigationControl());
 
-	function updateLegend(category, name) {
-		const { low, high } = statistics[category][name];
-		const colorScale = getColorScale(category, name);
+	function updateLegend(category, name, outlierMode) {
+		const stats = statistics[category][name];
+		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
+		const high =
+			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
+
+		const colorScale = getColorScale(category, name, outlierMode);
 		document.getElementById("gradient").style.background =
 			`linear-gradient(to right, ${colorScale.colors(5).join(", ")})`;
-		document.getElementById("min").textContent =
-			`${Math.max(0, Math.min(100, low)).toFixed(1)}%`;
-		document.getElementById("max").textContent =
-			`${Math.max(0, Math.min(100, high)).toFixed(1)}%`;
+		document.getElementById("min").textContent = `${low.toFixed(1)}%`;
+		document.getElementById("max").textContent = `${high.toFixed(1)}%`;
 	}
 
 	function loadDataset(category, name) {
@@ -103,10 +114,17 @@ const categoryNames = Object.keys(categories);
 			.getStyle()
 			.layers.find((layer) => layer.type === "symbol").id;
 
+		const outlierMode = (
+			document.getElementById("outlierSelect") as HTMLSelectElement
+		).value;
 		const categoryMapped = categoryMapping[category];
 		const newName = keyMapping[name];
-		const colorScale = getColorScale(categoryMapped, name);
-		const { low, median, high } = statistics[categoryMapped][name];
+		const colorScale = getColorScale(categoryMapped, name, outlierMode);
+
+		const stats = statistics[categoryMapped][name];
+		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
+		const high =
+			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
 
 		// Remove existing sources and layers if they exist
 		if (map.getLayer("areas")) {
@@ -164,19 +182,32 @@ const categoryNames = Object.keys(categories);
 			colorScale(high).hex(),
 		];
 
-		// Ensure the numeric values are in ascending order
-		const sortedFillColor = [];
-		for (let i = 0; i < fillColor.length; i += 2) {
-			sortedFillColor.push([fillColor[i], fillColor[i + 1]]);
-		}
-		sortedFillColor.sort((a, b) => a[0] - b[0]);
+		console.log(fillColor);
 
-		// Flatten the sorted array
-		const flatSortedFillColor = sortedFillColor.reduce(
+		// Ensure the numeric values are in ascending order and unique, and set color for zero values
+		const uniqueSortedFillColor = fillColor
+			.reduce((acc, val, index, arr) => {
+				if (index % 2 === 0) {
+					// Check if it's a numeric value
+					let color = arr[index + 1];
+					if (val === 0) {
+						color = "#ca0020"; // Set color to red if value is zero
+					}
+					if (!acc.find((item) => item[0] === val)) {
+						// Only add if not already added
+						acc.push([val, color]);
+					}
+				}
+				return acc;
+			}, [])
+			.sort((a, b) => a[0] - b[0]); // Sort by numeric values
+
+		// Flatten the sorted and unique array
+		const flatSortedFillColor = uniqueSortedFillColor.reduce(
 			(acc, val) => acc.concat(val),
 			[]
 		);
-		
+
 		map.addLayer(
 			{
 				id: "intersected",
@@ -196,7 +227,7 @@ const categoryNames = Object.keys(categories);
 			firstLabelLayerId
 		);
 
-		updateLegend(categoryMapped, name);
+		updateLegend(categoryMapped, name, outlierMode);
 
 		map.on("mousemove", "areas", (e) => {
 			const features = map.queryRenderedFeatures(e.point, {
@@ -251,5 +282,11 @@ const categoryNames = Object.keys(categories);
 		const initialCategory = categoryNames[0];
 		const initialName = categories[initialCategory][0];
 		loadDataset(initialCategory, initialName);
+	});
+
+	document.getElementById("outlierSelect").addEventListener("change", () => {
+		const category = categorySelect.value;
+		const name = datasetSelect.value;
+		loadDataset(category, name);
 	});
 </script>

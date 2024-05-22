@@ -29,13 +29,13 @@ def calculate_statistics(file_path, description, skip_rows):
         for column in df.columns:
             if column != total_column_name:
                 median = df[column].median()
-                q1 = df[column].quantile(0.02)
-                q3 = df[column].quantile(0.98)
 
                 file_results[column] = {
                     "median": round(median, 2),
-                    "low": round(q1, 2),
-                    "high": round(q3, 2),
+                    "low": round(df[column].quantile(0.05), 2),
+                    "high": round(df[column].quantile(0.95), 2),
+                    "outlierLow": round(df[column].quantile(0), 2),
+                    "outlierHigh": round(df[column].quantile(1), 2),
                 }
 
         results[description] = file_results
