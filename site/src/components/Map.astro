@@ -51,13 +51,14 @@ const categoryNames = Object.keys(categories);
 	href="https://js.arcgis.com/4.21/esri/themes/light/main.css"
 />
 <script>
-	import Map from "@arcgis/core/Map";
+	import { Deck } from "@deck.gl/core";
+	import { MVTLayer } from "@deck.gl/geo-layers";
+	import { DeckLayer } from "@deck.gl/arcgis";
+	import ArcGISMap from "@arcgis/core/Map";
 	import MapView from "@arcgis/core/views/MapView";
-	import VectorTileLayer from "@arcgis/core/layers/VectorTileLayer";
-	import Search from "@arcgis/core/widgets/Search";
 	import Extent from "@arcgis/core/geometry/Extent";
-
 	import LocatorSearchSource from "@arcgis/core/widgets/Search/LocatorSearchSource";
+	import Search from "@arcgis/core/widgets/Search";
 	import GroupLayer from "@arcgis/core/layers/GroupLayer";
 	import statistics from "../data/statistics.json";
 	import keyMapping from "../data/key_mapping.json";
@@ -66,79 +67,76 @@ const categoryNames = Object.keys(categories);
 
 	const categoryNames = Object.keys(categories);
 
-	// Style configurations for Scottish buildings and areas
-	const buildingsStyle = {
-		sources: {
-			"scottish-buildings": {
-				type: "vector",
-				tiles: [
-					"https://map.jacobweinbren.workers.dev/uk-cleaned/{z}/{x}/{y}.mvt",
-				],
-				minzoom: 0,
-				maxzoom: 17,
-			},
-		},
-		layers: [
-			{
+	// Define the DeckLayer for areas with dynamic fill color based on data
+	function createAreaLayer(categoryMapped, newName, low, high, name) {
+		return new DeckLayer({
+			id: "areas-layer",
+			"deck.layers": [
+				new MVTLayer({
+					id: "areas-layer",
+					data: `https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
+					minZoom: 0,
+					maxZoom: 17,
+					getFillColor: (d) => {
+						const value = d.properties[newName];
+						if (value === null) return [0, 0, 0, 0];
+						return value < low
+							? [202, 0, 32, 255]
+							: value < low + (high - low) / 4
+								? [244, 165, 130, 255]
+								: value < low + (high - low) / 2
+									? [247, 247, 247, 255]
+									: value < low + (3 * (high - low)) / 4
+										? [146, 197, 222, 255]
+										: [5, 113, 176, 255];
+					},
+					updateTriggers: {
+						getFillColor: [low, high],
+					},
+					pickable: true,
+					onHover: (info) => {
+						const hoverElement = document.getElementById("hover");
+						if (info.object) {
+							const value = info.object.properties[newName];
+							hoverElement.innerHTML = `This census area is <b>${value}%</b> of the variable <b>${name}</b>`;
+						} else {
+							hoverElement.innerHTML =
+								"Hover over a point to see its value.";
+						}
+					},
+				}),
+			],
+		});
+	}
+
+	// Define the DeckLayer for buildings
+	const buildingsLayer = new DeckLayer({
+		id: "buildings-layer",
+		"deck.layers": [
+			new MVTLayer({
 				id: "buildings-layer",
-				type: "fill",
-				source: "scottish-buildings",
-				"source-layer": "buildings",
-				minzoom: 0,
-				maxzoom: 17,
-			},
+				data: "https://map.jacobweinbren.workers.dev/uk-cleaned/{z}/{x}/{y}.mvt",
+				minZoom: 0,
+				maxZoom: 17,
+				getFillColor: [255, 0, 0, 255],
+				getLineColor: [255, 255, 255], // Set line color to white
+				lineWidthMinPixels: 1,
+			}),
 		],
-	};
-
-	const areasStyle = {
-		sources: {
-			"scottish-areas": {
-				type: "vector",
-				tiles: [
-					"https://map.jacobweinbren.workers.dev/scottish-areas-ages/{z}/{x}/{y}.mvt",
-				],
-				minzoom: 0,
-				maxzoom: 17,
-			},
-		},
-		layers: [
-			{
-				id: "areas-layer",
-				type: "fill",
-				source: "scottish-areas",
-				"source-layer": "maplayer",
-				minzoom: 0,
-				maxzoom: 17,
-			},
-		],
-	};
-
-	// Create VectorTileLayers with the defined styles
-	const buildingsLayer = new VectorTileLayer({
-		style: buildingsStyle,
 		blendMode: "destination-in",
 	});
-	let areasLayer = new VectorTileLayer({ style: areasStyle });
 
-	// Group layers with buildingsLayer on top to apply the mask
-	let groupedLayers = new GroupLayer({
-		layers: [areasLayer, buildingsLayer],
-	});
-
-	// Initialize the map with the grouped layers
-	let map = new Map({
+	const map = new ArcGISMap({
 		basemap: "dark-gray-vector",
 		layers: [],
 	});
 
-	// Configure the MapView
-	const mapView = new MapView({
+	const view = new MapView({
 		container: "map",
 		map: map,
 		zoom: 6,
 		center: [-4.2026, 56.4907],
 		constraints: {
-			snapToZoom: false,
 			maxZoom: 16,
 		},
 	});
@@ -175,7 +173,7 @@ const categoryNames = Object.keys(categories);
 		view.ui.add(searchWidget, "top-right");
 	}
 
-	addSearchWidget(mapView);
+	addSearchWidget(view);
 
 	function updateLegend(category, name, outlierMode) {
 		const stats = statistics[category][name];
@@ -199,93 +197,32 @@ const categoryNames = Object.keys(categories);
 		const categoryMapped = categoryMapping[category];
 		const newName = keyMapping[name];
 		const stats = statistics[categoryMapped][name];
-
 		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
 		const high =
 			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
 
-		// Update the tile URL and rebuild the areas layer
-		areasStyle.sources["scottish-areas"].tiles = [
-			`https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
-		];
-		areasLayer = new VectorTileLayer({ style: areasStyle });
-		groupedLayers = new GroupLayer({
-			layers: [areasLayer, buildingsLayer],
+		const areaLayer = createAreaLayer(categoryMapped, newName, low, high, name);
+		const groupLayer = new GroupLayer({
+			layers: [areaLayer, buildingsLayer],
 		});
-
-		// Define fill color expression
-		const fillColorExpression = [
-			"case",
-			["==", ["get", newName], null],
-			"transparent",
-			[
-				"interpolate",
-				["linear"],
-				["get", newName],
-				low,
-				"#ca0020",
-				low + (high - low) / 4,
-				"#f4a582",
-				low + (high - low) / 2,
-				"#f7f7f7",
-				low + (3 * (high - low)) / 4,
-				"#92c5de",
-				high,
-				"#0571b0",
-			],
-		];
-
-		// Apply properties when layer is ready
-		areasLayer
-			.when(() => {
-				areasLayer.setPaintProperties("areas-layer", {
-					"fill-color": fillColorExpression,
-					"fill-opacity": 1,
-					"fill-outline-color": fillColorExpression,
-				});
-			})
-			.catch((error) =>
-				console.error("Error setting paint properties:", error)
-			);
 
 		map.layers.removeAll();
-		map.layers.addMany([groupedLayers]);
-
-		// Setup hover effect
-		mapView.on("pointer-move", function (event) {
-			mapView.hitTest(event).then(function (response) {
-				const graphicHits = response.results.filter(
-					(result) => result.type === "graphic"
-				);
-				const hoverElement = document.getElementById("hover");
-
-				if (graphicHits.length > 0) {
-					const graphic = (graphicHits[0] as any).graphic; 
-					if (
-						graphic &&
-						graphic.attributes &&
-						graphic.attributes[newName]
-					) {
-						const value = parseFloat(
-							graphic.attributes[newName]
-						).toFixed(1);
-						hoverElement.innerHTML = `This census area is <b>${value}%</b> of the variable <b>${name}</b>`;
-					}
-				} else {
-					hoverElement.innerHTML =
-						"Hover over a point to see its value.";
-				}
-			});
-		});
+		map.add(groupLayer);
 
 		updateLegend(categoryMapped, name, outlierMode);
 	}
 
-	const categorySelect = document.getElementById("category");
-	const datasetSelect = document.getElementById("dataset");
+	// Initialize and load initial dataset
+	view.when(() => {
+		const initialCategory = categoryNames[0];
+		const initialName = categories[initialCategory][0];
+		loadDataset(initialCategory, initialName);
+	});
 
-	categorySelect.addEventListener("change", (e) => {
+	// Event listeners for UI controls
+	document.getElementById("category").addEventListener("change", (e) => {
 		const category = (e.target as HTMLSelectElement).value;
+		const datasetSelect = document.getElementById("dataset");
 		datasetSelect.innerHTML = "";
 		categories[category].forEach((option) => {
 			const optionElement = document.createElement("option");
@@ -296,21 +233,22 @@ const categoryNames = Object.keys(categories);
 		loadDataset(category, categories[category][0]);
 	});
 
-	datasetSelect.addEventListener("change", (e) => {
-		const name = (e.target as HTMLSelectElement).value;
-		const category = (categorySelect as HTMLSelectElement).value;
-		loadDataset(category, name);
+	document.getElementById("dataset")!.addEventListener("change", (e) => {
+		const name = e.target as HTMLSelectElement;
+		const categorySelect = document.getElementById(
+			"category"
+		) as HTMLSelectElement;
+		const category = categorySelect.value;
+		loadDataset(category, name.value);
 	});
 
-	mapView.when(() => {
-		const initialCategory = categoryNames[0];
-		const initialName = categories[initialCategory][0];
-		loadDataset(initialCategory, initialName);
-	});
-
-	document.getElementById("outlierSelect").addEventListener("change", () => {
-		const category = (categorySelect as HTMLSelectElement).value;
-		const name = (datasetSelect as HTMLSelectElement).value;
-		loadDataset(category, name);
+	document.getElementById("outlierSelect")!.addEventListener("change", () => {
+		const categorySelect = document.getElementById(
+			"category"
+		) as HTMLSelectElement;
+		const datasetSelect = document.getElementById(
+			"dataset"
+		) as HTMLSelectElement;
+		loadDataset(categorySelect.value, datasetSelect.value);
 	});
 </script>
