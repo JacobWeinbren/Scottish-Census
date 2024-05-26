@@ -158,7 +158,7 @@ const categoryNames = Object.keys(categories);
 				geometry: scotlandExtent,
 			},
 			placeholder: "Find address or place",
-			countryCode: "GBR", 
+			countryCode: "GBR",
 			maxResults: 6,
 			maxSuggestions: 6,
 			suggestionsEnabled: true,
@@ -250,6 +250,33 @@ const categoryNames = Object.keys(categories);
 
 		map.layers.removeAll();
 		map.layers.addMany([groupedLayers]);
+
+		// Setup hover effect
+		mapView.on("pointer-move", function (event) {
+			mapView.hitTest(event).then(function (response) {
+				const graphicHits = response.results.filter(
+					(result) => result.type === "graphic"
+				);
+				const hoverElement = document.getElementById("hover");
+
+				if (graphicHits.length > 0) {
+					const graphic = graphicHits[0].graphic;
+					if (
+						graphic &&
+						graphic.attributes &&
+						graphic.attributes[newName]
+					) {
+						const value = parseFloat(
+							graphic.attributes[newName]
+						).toFixed(1);
+						hoverElement.innerHTML = `This census area is <b>${value}%</b> of the variable <b>${name}</b>`;
+					}
+				} else {
+					hoverElement.innerHTML =
+						"Hover over a point to see its value.";
+				}
+			});
+		});
 
 		updateLegend(categoryMapped, name, outlierMode);
 	}
