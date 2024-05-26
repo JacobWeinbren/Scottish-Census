@@ -97,8 +97,8 @@ const categoryNames = Object.keys(categories);
 					onHover: (info) => {
 						const hoverElement = document.getElementById("hover");
 						if (info.object) {
-							const value = info.object.properties[newName];
-							hoverElement.innerHTML = `This census area is <b>${value}%</b> of the variable <b>${name}</b>`;
+							const value = parseFloat(info.object.properties[newName]).toFixed(1);
+							hoverElement.innerHTML = `This census area is <span class="font-semibold">${value}%</span> of the variable <span class="font-semibold">${name}</span>`;
 						} else {
 							hoverElement.innerHTML =
 								"Hover over a point to see its value.";
