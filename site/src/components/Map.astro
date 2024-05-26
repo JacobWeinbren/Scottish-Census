@@ -260,7 +260,7 @@ const categoryNames = Object.keys(categories);
 				const hoverElement = document.getElementById("hover");
 
 				if (graphicHits.length > 0) {
-					const graphic = graphicHits[0].graphic;
+					const graphic = (graphicHits[0] as any).graphic; 
 					if (
 						graphic &&
 						graphic.attributes &&
