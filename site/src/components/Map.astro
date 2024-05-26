@@ -5,7 +5,7 @@ const categoryNames = Object.keys(categories);
 ---
 
 <div id="map" class="w-screen h-screen"></div>
-<div id="geocoder" class="geocoder fixed top-4 left-4 z-10"></div>
+<div id="geocoder"></div>
 <div
 	class="sm:w-[500px] text-sm w-full flex flex-col gap-2 absolute bottom-10 rounded-md z-10 bg-white p-4 left-1/2 transform -translate-x-1/2"
 >
@@ -46,10 +46,19 @@ const categoryNames = Object.keys(categories);
 	<div id="hover">Hover over a point to see its value.</div>
 </div>
 
+<link
+	rel="stylesheet"
+	href="https://js.arcgis.com/4.21/esri/themes/light/main.css"
+/>
 <script>
-	import mapboxgl from "mapbox-gl";
-	import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-	import chroma from "chroma-js";
+	import Map from "@arcgis/core/Map";
+	import MapView from "@arcgis/core/views/MapView";
+	import VectorTileLayer from "@arcgis/core/layers/VectorTileLayer";
+	import Search from "@arcgis/core/widgets/Search";
+	import Extent from "@arcgis/core/geometry/Extent";
+
+	import LocatorSearchSource from "@arcgis/core/widgets/Search/LocatorSearchSource";
+	import GroupLayer from "@arcgis/core/layers/GroupLayer";
 	import statistics from "../data/statistics.json";
 	import keyMapping from "../data/key_mapping.json";
 	import categoryMapping from "../data/category_mapping.json";
@@ -57,43 +66,117 @@ const categoryNames = Object.keys(categories);
 
 	const categoryNames = Object.keys(categories);
 
-	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
+	// Style configurations for Scottish buildings and areas
+	const buildingsStyle = {
+		sources: {
+			"scottish-buildings": {
+				type: "vector",
+				tiles: [
+					"https://map.jacobweinbren.workers.dev/uk-cleaned/{z}/{x}/{y}.mvt",
+				],
+				minzoom: 0,
+				maxzoom: 17,
+			},
+		},
+		layers: [
+			{
+				id: "buildings-layer",
+				type: "fill",
+				source: "scottish-buildings",
+				"source-layer": "buildings",
+				minzoom: 0,
+				maxzoom: 17,
+			},
+		],
+	};
 
-	function getColorScale(category, name, outlierMode) {
-		const stats = statistics[category][name];
-		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
-		const high =
-			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
+	const areasStyle = {
+		sources: {
+			"scottish-areas": {
+				type: "vector",
+				tiles: [
+					"https://map.jacobweinbren.workers.dev/scottish-areas-ages/{z}/{x}/{y}.mvt",
+				],
+				minzoom: 0,
+				maxzoom: 17,
+			},
+		},
+		layers: [
+			{
+				id: "areas-layer",
+				type: "fill",
+				source: "scottish-areas",
+				"source-layer": "maplayer",
+				minzoom: 0,
+				maxzoom: 17,
+			},
+		],
+	};
 
-		const colorPalette = [
-			"#ca0020",
-			"#f4a582",
-			"#f7f7f7",
-			"#92c5de",
-			"#0571b0",
-		];
-		const domain = [low, (low + high) / 2, high];
-		return chroma.scale(colorPalette).domain(domain).mode("lch");
+	// Create VectorTileLayers with the defined styles
+	const buildingsLayer = new VectorTileLayer({
+		style: buildingsStyle,
+		blendMode: "destination-in",
+	});
+	let areasLayer = new VectorTileLayer({ style: areasStyle });
+
+	// Group layers with buildingsLayer on top to apply the mask
+	let groupedLayers = new GroupLayer({
+		layers: [areasLayer, buildingsLayer],
+	});
+
+	// Initialize the map with the grouped layers
+	let map = new Map({
+		basemap: "dark-gray-vector",
+		layers: [],
+	});
+
+	// Configure the MapView
+	const mapView = new MapView({
+		container: "map",
+		map: map,
+		zoom: 6,
+		center: [-4.2026, 56.4907],
+		constraints: {
+			snapToZoom: false,
+			maxZoom: 16,
+		},
+	});
+
+	function addSearchWidget(view) {
+		const scotlandExtent = new Extent({
+			xmin: -7.57216793459,
+			ymin: 54.6738309653,
+			xmax: -1.63499077215,
+			ymax: 60.8616542859,
+			spatialReference: { wkid: 4326 },
+		});
+
+		const locatorSource = new LocatorSearchSource({
+			url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
+			filter: {
+				geometry: scotlandExtent,
+			},
+			placeholder: "Find address or place in Scotland",
+			countryCode: "GBR", // ISO 3166-1 alpha-3 country code
+			categories: ["Address", "Postal", "Populated Place"], // limit search to certain categories
+			maxResults: 6,
+			maxSuggestions: 6,
+			suggestionsEnabled: true,
+			minSuggestCharacters: 3,
+			zoomScale: 50000,
+		});
+
+		const searchWidget = new Search({
+			view: view,
+			sources: [locatorSource],
+			includeDefaultSources: false,
+		});
+
+		view.ui.add(searchWidget, "top-right");
 	}
 
-	const map = new mapboxgl.Map({
-		container: "map",
-		style: "mapbox://styles/mapbox/dark-v11",
-		center: [-4.2026, 56.4907],
-		minZoom: 5,
-		maxZoom: 17,
-		zoom: 6,
-		accessToken: MAPBOX_TOKEN,
-		antialias: true,
-	});
-
-	const geocoder = new MapboxGeocoder({
-		accessToken: MAPBOX_TOKEN,
-		mapboxgl: mapboxgl,
-	});
-	document.getElementById("geocoder").appendChild(geocoder.onAdd(map));
-
-	map.addControl(new mapboxgl.NavigationControl());
+	addSearchWidget(mapView);
 
 	function updateLegend(category, name, outlierMode) {
 		const stats = statistics[category][name];
@@ -101,11 +184,7 @@ const categoryNames = Object.keys(categories);
 		const high =
 			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
 
-		const colorScale = getColorScale(category, name, outlierMode);
-		const colors = colorScale.colors(5).map((color, index) => {
-			const value = low + (index * (high - low)) / 4;
-			return value === 0 ? "#ca0020" : color;
-		});
+		const colors = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"];
 
 		document.getElementById("gradient").style.background =
 			`linear-gradient(to right, ${colors.join(", ")})`;
@@ -114,149 +193,70 @@ const categoryNames = Object.keys(categories);
 	}
 
 	function loadDataset(category, name) {
-		const firstLabelLayerId = map
-			.getStyle()
-			.layers.find((layer) => layer.type === "symbol").id;
-
-		const outlierMode = (
-			document.getElementById("outlierSelect") as HTMLSelectElement
-		).value;
+		const outlierSelect = document.getElementById(
+			"outlierSelect"
+		) as HTMLSelectElement;
+		const outlierMode = outlierSelect.value;
 		const categoryMapped = categoryMapping[category];
 		const newName = keyMapping[name];
-		const colorScale = getColorScale(categoryMapped, name, outlierMode);
-
 		const stats = statistics[categoryMapped][name];
+
 		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
 		const high =
 			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
 
-		// Remove existing sources and layers if they exist
-		if (map.getLayer("areas")) {
-			map.removeLayer("areas");
-			map.removeSource("areas");
-		}
-
-		if (map.getLayer("intersected")) {
-			map.removeLayer("intersected");
-			map.removeSource("intersected");
-		}
-
-		// Add new sources and layers
-		map.addSource("areas", {
-			type: "vector",
-			tiles: [
-				`https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
-			],
-			minzoom: 0,
-			maxzoom: 22,
+		// Update the tile URL and rebuild the areas layer
+		areasStyle.sources["scottish-areas"].tiles = [
+			`https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
+		];
+		areasLayer = new VectorTileLayer({ style: areasStyle });
+		groupedLayers = new GroupLayer({
+			layers: [areasLayer, buildingsLayer],
 		});
 
-		map.addLayer(
-			{
-				id: "areas",
-				type: "fill",
-				source: "areas",
-				"source-layer": "maplayer",
-				paint: {
-					"fill-color": "rgba(0, 0, 0, 0)",
-				},
-			},
-			firstLabelLayerId
-		);
-
-		map.addSource("intersected", {
-			type: "vector",
-			tiles: [
-				`https://map.jacobweinbren.workers.dev/scottish-intersected-${categoryMapped}/{z}/{x}/{y}.mvt`,
+		// Define fill color expression
+		const fillColorExpression = [
+			"case",
+			["==", ["get", newName], null],
+			"transparent",
+			[
+				"interpolate",
+				["linear"],
+				["get", newName],
+				low,
+				"#ca0020",
+				low + (high - low) / 4,
+				"#f4a582",
+				low + (high - low) / 2,
+				"#f7f7f7",
+				low + (3 * (high - low)) / 4,
+				"#92c5de",
+				high,
+				"#0571b0",
 			],
-			minzoom: 0,
-			maxzoom: 22,
-		});
-
-		const fillColor = [
-			low,
-			colorScale(low).hex(),
-			(low + high) / 4,
-			colorScale((low + high) / 4).hex(),
-			(low + high) / 2,
-			colorScale((low + high) / 2).hex(),
-			(low + high) * 0.75,
-			colorScale((low + high) * 0.75).hex(),
-			high,
-			colorScale(high).hex(),
 		];
 
-		// Ensure the numeric values are in ascending order and unique, and set color for zero values
-		const uniqueSortedFillColor = fillColor
-			.reduce((acc, val, index, arr) => {
-				if (index % 2 === 0) {
-					let color = arr[index + 1];
-					if (val === 0) {
-						color = "#ca0020";
-					}
-					if (!acc.find((item) => item[0] === val)) {
-						acc.push([val, color]);
-					}
-				}
-				return acc;
-			}, [])
-			.sort((a, b) => a[0] - b[0]);
-
-		// Flatten the sorted and unique array
-		const flatSortedFillColor = uniqueSortedFillColor.reduce(
-			(acc, val) => acc.concat(val),
-			[]
-		);
-
-		map.addLayer(
-			{
-				id: "intersected",
-				type: "fill",
-				source: "intersected",
-				"source-layer": "maplayer",
-				paint: {
-					"fill-color": [
-						"interpolate",
-						["linear"],
-						["to-number", ["get", newName]],
-						...flatSortedFillColor,
-					],
+		// Apply properties when layer is ready
+		areasLayer
+			.when(() => {
+				areasLayer.setPaintProperties("areas-layer", {
+					"fill-color": fillColorExpression,
 					"fill-opacity": 1,
-				},
-			},
-			firstLabelLayerId
-		);
+					"fill-outline-color": fillColorExpression,
+				});
+			})
+			.catch((error) =>
+				console.error("Error setting paint properties:", error)
+			);
+
+		map.layers.removeAll();
+		map.layers.addMany([groupedLayers]);
 
 		updateLegend(categoryMapped, name, outlierMode);
-
-		map.on("mousemove", "areas", (e) => {
-			const features = map.queryRenderedFeatures(e.point, {
-				layers: ["areas"],
-			});
-
-			if (features.length > 0) {
-				const feature = features[0];
-				const value = feature.properties[newName];
-				document.getElementById("hover").innerHTML =
-					`This area is <b>${parseFloat(value).toFixed(1)}%</b> of the variable <b>${name}</b>`;
-			} else {
-				document.getElementById("hover").textContent =
-					"Hover over a point to see its value.";
-			}
-		});
-
-		map.on("mouseleave", "areas", () => {
-			document.getElementById("hover").textContent =
-				"Hover over a point to see its value.";
-		});
 	}
 
-	const categorySelect = document.getElementById(
-		"category"
-	) as HTMLSelectElement;
-	const datasetSelect = document.getElementById(
-		"dataset"
-	) as HTMLSelectElement;
+	const categorySelect = document.getElementById("category");
+	const datasetSelect = document.getElementById("dataset");
 
 	categorySelect.addEventListener("change", (e) => {
 		const category = (e.target as HTMLSelectElement).value;
@@ -267,26 +267,24 @@ const categoryNames = Object.keys(categories);
 			optionElement.textContent = option;
 			datasetSelect.appendChild(optionElement);
 		});
-		// Load the first dataset of the newly selected category
 		loadDataset(category, categories[category][0]);
 	});
 
 	datasetSelect.addEventListener("change", (e) => {
 		const name = (e.target as HTMLSelectElement).value;
-		const category = categorySelect.value;
+		const category = (categorySelect as HTMLSelectElement).value;
 		loadDataset(category, name);
 	});
 
-	// Initial load of the map with the first category and dataset
-	map.on("load", () => {
+	mapView.when(() => {
 		const initialCategory = categoryNames[0];
 		const initialName = categories[initialCategory][0];
 		loadDataset(initialCategory, initialName);
 	});
 
 	document.getElementById("outlierSelect").addEventListener("change", () => {
-		const category = categorySelect.value;
-		const name = datasetSelect.value;
+		const category = (categorySelect as HTMLSelectElement).value;
+		const name = (datasetSelect as HTMLSelectElement).value;
 		loadDataset(category, name);
 	});
 </script>
