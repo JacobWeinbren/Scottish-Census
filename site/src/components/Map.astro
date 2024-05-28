@@ -47,141 +47,116 @@ const categoryNames = Object.keys(categories);
 </div>
 
 <link
+	href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
 	rel="stylesheet"
-	href="https://js.arcgis.com/4.21/esri/themes/light/main.css"
 />
+
 <script>
-	import { Deck } from "@deck.gl/core";
+	import { GeoJsonLayer } from "@deck.gl/layers";
+	import { MapboxOverlay } from "@deck.gl/mapbox";
 	import { MVTLayer } from "@deck.gl/geo-layers";
-	import { DeckLayer } from "@deck.gl/arcgis";
-	import ArcGISMap from "@arcgis/core/Map";
-	import MapView from "@arcgis/core/views/MapView";
-	import Extent from "@arcgis/core/geometry/Extent";
-	import LocatorSearchSource from "@arcgis/core/widgets/Search/LocatorSearchSource";
-	import Search from "@arcgis/core/widgets/Search";
-	import GroupLayer from "@arcgis/core/layers/GroupLayer";
+	import { MaskExtension } from "@deck.gl/extensions";
+	import mapboxgl from "mapbox-gl";
 	import statistics from "../data/statistics.json";
 	import keyMapping from "../data/key_mapping.json";
 	import categoryMapping from "../data/category_mapping.json";
 	import categories from "../data/categories.json";
+	import { rgb } from "d3-color";
+
+	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
 
 	const categoryNames = Object.keys(categories);
+	const colors = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"];
 
-	// Define the DeckLayer for areas with dynamic fill color based on data
-	function createAreaLayer(categoryMapped, newName, low, high, name) {
-		return new DeckLayer({
-			id: "areas-layer",
-			"deck.layers": [
-				new MVTLayer({
-					id: "areas-layer",
-					data: `https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
-					minZoom: 0,
-					maxZoom: 17,
-					getFillColor: (d) => {
-						const value = d.properties[newName];
-						if (value === null) return [0, 0, 0, 0];
-						return value < low
-							? [202, 0, 32, 255]
-							: value < low + (high - low) / 4
-								? [244, 165, 130, 255]
-								: value < low + (high - low) / 2
-									? [247, 247, 247, 255]
-									: value < low + (3 * (high - low)) / 4
-										? [146, 197, 222, 255]
-										: [5, 113, 176, 255];
-					},
-					updateTriggers: {
-						getFillColor: [low, high],
-					},
-					pickable: true,
-					onHover: (info) => {
-						const hoverElement = document.getElementById("hover");
-						if (info.object) {
-							const value = parseFloat(info.object.properties[newName]).toFixed(1);
-							hoverElement.innerHTML = `This census area is <span class="font-semibold">${value}%</span> of the variable <span class="font-semibold">${name}</span>`;
-						} else {
-							hoverElement.innerHTML =
-								"Hover over a point to see its value.";
-						}
-					},
-				}),
-			],
-		});
-	}
-
-	// Define the DeckLayer for buildings
-	const buildingsLayer = new DeckLayer({
-		id: "buildings-layer",
-		"deck.layers": [
-			new MVTLayer({
-				id: "buildings-layer",
-				data: "https://map.jacobweinbren.workers.dev/uk-cleaned/{z}/{x}/{y}.mvt",
-				minZoom: 0,
-				maxZoom: 17,
-				getFillColor: [255, 0, 0, 255],
-				getLineColor: [255, 255, 255], // Set line color to white
-				lineWidthMinPixels: 1,
-			}),
-		],
-		blendMode: "destination-in",
+	const map = new mapboxgl.Map({
+		container: "map",
+		style: "mapbox://styles/mapbox/dark-v11",
+		center: [-4.2026, 56.4907],
+		zoom: 6,
+		maxZoom: 17,
+		accessToken: MAPBOX_TOKEN,
+		antialias: true,
+		projection: { name: "mercator" },
 	});
 
-	const map = new ArcGISMap({
-		basemap: "dark-gray-vector",
+	const categorySelect = document.getElementById("category");
+	const datasetSelect = document.getElementById("dataset");
+	const outlierSelect = document.getElementById("outlierSelect");
+	const hoverElement = document.getElementById("hover");
+
+	let currentMaskLayer;
+	let currentAreaLayer;
+	let firstLabelLayerId;
+
+	const deckOverlay = new MapboxOverlay({
+		interleaved: true,
 		layers: [],
 	});
 
-	const view = new MapView({
-		container: "map",
-		map: map,
-		zoom: 6,
-		center: [-4.2026, 56.4907],
-		constraints: {
-			maxZoom: 16,
-		},
-	});
+	map.addControl(deckOverlay);
 
-	function addSearchWidget(view) {
-		const scotlandExtent = new Extent({
-			xmin: -7.57216793459,
-			ymin: 54.6738309653,
-			xmax: -1.63499077215,
-			ymax: 60.8616542859,
-			spatialReference: { wkid: 4326 },
-		});
+	function createAreaLayer(categoryMapped, newName, low, high, name) {
+		const thresholds = [
+			low,
+			low + (high - low) / 4,
+			low + (high - low) / 2,
+			low + (3 * (high - low)) / 4,
+			high,
+		];
 
-		const locatorSource = new LocatorSearchSource({
-			url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer",
-			filter: {
-				geometry: scotlandExtent,
+		return new MVTLayer({
+			id: "area-layer",
+			data: `https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
+			getFillColor: (d) => {
+				const value = d.properties[newName];
+				if (value === null) return [0, 0, 0, 0];
+				const colorIndex =
+					value < thresholds[0]
+						? 0
+						: value < thresholds[1]
+							? 1
+							: value < thresholds[2]
+								? 2
+								: value < thresholds[3]
+									? 3
+									: 4;
+				const { r, g, b } = rgb(colors[colorIndex]);
+				return [r, g, b, 255];
 			},
-			placeholder: "Find address or place",
-			countryCode: "GBR",
-			maxResults: 6,
-			maxSuggestions: 6,
-			suggestionsEnabled: true,
-			minSuggestCharacters: 3,
-			zoomScale: 50000,
+			updateTriggers: {
+				getFillColor: [low, high],
+			},
+			extensions: [new MaskExtension()],
+			maskId: "mask-layer",
+			beforeId: firstLabelLayerId,
 		});
-
-		const searchWidget = new Search({
-			view: view,
-			sources: [locatorSource],
-			includeDefaultSources: false,
-		});
-
-		view.ui.add(searchWidget, "top-right");
 	}
 
-	addSearchWidget(view);
+	function createBackgroundLayer(categoryMapped, newName, name) {
+		return new MVTLayer({
+			id: "background-layer",
+			data: `https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
+			getFillColor: () => [0, 0, 0, 0], 
+			pickable: true,
+			onHover: (info) => {
+				if (info.object) {
+					const value = parseFloat(
+						info.object.properties[newName]
+					).toFixed(1);
+					hoverElement.innerHTML = `This census area is <span class="font-semibold">${value}%</span> of the variable <span class="font-semibold">${name}</span>`;
+				} else {
+					hoverElement.innerHTML =
+						"Hover over a point to see its value.";
+				}
+			},
+		});
+	}
 
 	function updateLegend(category, name, outlierMode) {
 		const stats = statistics[category][name];
 		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
 		const high =
 			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
-
-		const colors = ["#ca0020", "#f4a582", "#f7f7f7", "#92c5de", "#0571b0"];
 
 		document.getElementById("gradient").style.background =
 			`linear-gradient(to right, ${colors.join(", ")})`;
@@ -190,65 +165,77 @@ const categoryNames = Object.keys(categories);
 	}
 
 	function loadDataset(category, name) {
-		const outlierSelect = document.getElementById(
-			"outlierSelect"
-		) as HTMLSelectElement;
-		const outlierMode = outlierSelect.value;
+		const outlierMode = (outlierSelect as HTMLSelectElement).value;
 		const categoryMapped = categoryMapping[category];
 		const newName = keyMapping[name];
+
 		const stats = statistics[categoryMapped][name];
 		const low = outlierMode === "outliers" ? stats.outlierLow : stats.low;
 		const high =
 			outlierMode === "outliers" ? stats.outlierHigh : stats.high;
 
-		const areaLayer = createAreaLayer(categoryMapped, newName, low, high, name);
-		const groupLayer = new GroupLayer({
-			layers: [areaLayer, buildingsLayer],
-		});
+		currentAreaLayer = createAreaLayer(
+			categoryMapped,
+			newName,
+			low,
+			high,
+			name
+		);
+		const backgroundLayer = createBackgroundLayer(categoryMapped, newName, name);
 
-		map.layers.removeAll();
-		map.add(groupLayer);
+		deckOverlay.setProps({
+			layers: [currentMaskLayer, backgroundLayer, currentAreaLayer],
+		});
 
 		updateLegend(categoryMapped, name, outlierMode);
 	}
 
-	// Initialize and load initial dataset
-	view.when(() => {
-		const initialCategory = categoryNames[0];
-		const initialName = categories[initialCategory][0];
-		loadDataset(initialCategory, initialName);
-	});
+	map.on("load", () => {
+		firstLabelLayerId = map
+			.getStyle()
+			.layers.find((layer) => layer.type === "symbol").id;
 
-	// Event listeners for UI controls
-	document.getElementById("category").addEventListener("change", (e) => {
-		const category = (e.target as HTMLSelectElement).value;
-		const datasetSelect = document.getElementById("dataset");
-		datasetSelect.innerHTML = "";
-		categories[category].forEach((option) => {
-			const optionElement = document.createElement("option");
-			optionElement.value = option;
-			optionElement.textContent = option;
-			datasetSelect.appendChild(optionElement);
+		currentMaskLayer = new MVTLayer({
+			id: "mask-layer",
+			data: "https://map.jacobweinbren.workers.dev/uk-cleaned/{z}/{x}/{y}.mvt",
+			binary: false,
+			operation: "mask",
+			renderSubLayers: (props) => {
+				const layer = new GeoJsonLayer({
+					...props,
+					getFillColor: [255, 255, 255],
+					lineWidthMinPixels: 1,
+				});
+				return [layer];
+			},
+			beforeId: firstLabelLayerId,
 		});
-		loadDataset(category, categories[category][0]);
-	});
 
-	document.getElementById("dataset")!.addEventListener("change", (e) => {
-		const name = e.target as HTMLSelectElement;
-		const categorySelect = document.getElementById(
-			"category"
-		) as HTMLSelectElement;
-		const category = categorySelect.value;
-		loadDataset(category, name.value);
-	});
+		categorySelect.addEventListener("change", () => {
+			const category = (categorySelect as HTMLSelectElement).value;
+			const datasets = categories[category];
+			datasetSelect.innerHTML = "";
+			datasets.forEach((dataset) => {
+				const option = document.createElement("option");
+				option.value = dataset;
+				option.textContent = dataset;
+				datasetSelect.appendChild(option);
+			});
+			loadDataset(category, datasets[0]);
+		});
 
-	document.getElementById("outlierSelect")!.addEventListener("change", () => {
-		const categorySelect = document.getElementById(
-			"category"
-		) as HTMLSelectElement;
-		const datasetSelect = document.getElementById(
-			"dataset"
-		) as HTMLSelectElement;
-		loadDataset(categorySelect.value, datasetSelect.value);
+		datasetSelect.addEventListener("change", () => {
+			const category = (categorySelect as HTMLSelectElement).value;
+			const dataset = (datasetSelect as HTMLSelectElement).value;
+			loadDataset(category, dataset);
+		});
+
+		outlierSelect.addEventListener("change", () => {
+			const category = (categorySelect as HTMLSelectElement).value;
+			const dataset = (datasetSelect as HTMLSelectElement).value;
+			loadDataset(category, dataset);
+		});
+
+		loadDataset(categoryNames[0], categories[categoryNames[0]][0]);
 	});
 </script>
