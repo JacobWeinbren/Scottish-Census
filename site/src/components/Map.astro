@@ -61,7 +61,7 @@ const categoryNames = Object.keys(categories);
 	import keyMapping from "../data/key_mapping.json";
 	import categoryMapping from "../data/category_mapping.json";
 	import categories from "../data/categories.json";
-	import { rgb } from "d3-color";
+	import chroma from "chroma-js";
 
 	const MAPBOX_TOKEN = import.meta.env.PUBLIC_MAPBOX_TOKEN;
 
@@ -85,7 +85,6 @@ const categoryNames = Object.keys(categories);
 	const outlierSelect = document.getElementById("outlierSelect");
 	const hoverElement = document.getElementById("hover");
 
-	let currentMaskLayer;
 	let currentAreaLayer;
 	let firstLabelLayerId;
 
@@ -97,33 +96,24 @@ const categoryNames = Object.keys(categories);
 	map.addControl(deckOverlay);
 
 	function createAreaLayer(categoryMapped, newName, low, high, name) {
-		const thresholds = [
-			low,
-			low + (high - low) / 4,
-			low + (high - low) / 2,
-			low + (3 * (high - low)) / 4,
-			high,
-		];
+		const colorScale = chroma.scale(colors).domain([low, high]);
 
 		return new MVTLayer({
 			id: "area-layer",
-			data: `https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
-			getFillColor: (d) => {
+			data: `https://map.jacobweinbren.workers.dev/scottish-intersected-${categoryMapped}/{z}/{x}/{y}.mvt`,
+			getFillColor: (d): [number, number, number, number] => {
 				const value = d.properties[newName];
 				if (value === null) return [0, 0, 0, 0];
-				const colorIndex =
-					value < thresholds[0]
-						? 0
-						: value < thresholds[1]
-							? 1
-							: value < thresholds[2]
-								? 2
-								: value < thresholds[3]
-									? 3
-									: 4;
-				const { r, g, b } = rgb(colors[colorIndex]);
-				return [r, g, b, 255];
+				const color = colorScale(value).rgb();
+				return [...color, 255] as [number, number, number, number];
 			},
+			getLineColor: (d) => {
+				const value = d.properties[newName];
+				if (value === null) return [0, 0, 0, 0];
+				const color = colorScale(value).rgb();
+				return [...color, 255] as [number, number, number, number];
+			},
+			lineWidthMinPixels: 1,
 			updateTriggers: {
 				getFillColor: [low, high],
 			},
@@ -137,7 +127,7 @@ const categoryNames = Object.keys(categories);
 		return new MVTLayer({
 			id: "background-layer",
 			data: `https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
-			getFillColor: () => [0, 0, 0, 0], 
+			getFillColor: () => [0, 0, 0, 0],
 			pickable: true,
 			onHover: (info) => {
 				if (info.object) {
@@ -182,10 +172,14 @@ const categoryNames = Object.keys(categories);
 			high,
 			name
 		);
-		const backgroundLayer = createBackgroundLayer(categoryMapped, newName, name);
+		const backgroundLayer = createBackgroundLayer(
+			categoryMapped,
+			newName,
+			name
+		);
 
 		deckOverlay.setProps({
-			layers: [currentMaskLayer, backgroundLayer, currentAreaLayer],
+			layers: [backgroundLayer, currentAreaLayer],
 		});
 
 		updateLegend(categoryMapped, name, outlierMode);
@@ -195,16 +189,6 @@ const categoryNames = Object.keys(categories);
 		firstLabelLayerId = map
 			.getStyle()
 			.layers.find((layer) => layer.type === "symbol").id;
-
-		currentMaskLayer = new MVTLayer({
-			id: "mask-layer",
-			data: "https://map.jacobweinbren.workers.dev/uk-cleaned/{z}/{x}/{y}.mvt",
-			binary: false,
-			operation: "mask",
-			getFillColor: [255, 255, 255],
-			lineWidthMinPixels: 1,
-			beforeId: firstLabelLayerId,
-		});
 
 		categorySelect.addEventListener("change", () => {
 			const category = (categorySelect as HTMLSelectElement).value;
