@@ -127,6 +127,7 @@ const categoryNames = Object.keys(categories);
 			id: "background-layer",
 			data: `https://map.jacobweinbren.workers.dev/scottish-areas-${categoryMapped}/{z}/{x}/{y}.mvt`,
 			getFillColor: () => [0, 0, 0, 0],
+			getLineColor: () => [0, 0, 0, 0],
 			pickable: true,
 			onHover: (info) => {
 				if (info.object) {
