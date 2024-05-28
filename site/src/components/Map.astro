@@ -201,14 +201,8 @@ const categoryNames = Object.keys(categories);
 			data: "https://map.jacobweinbren.workers.dev/uk-cleaned/{z}/{x}/{y}.mvt",
 			binary: false,
 			operation: "mask",
-			renderSubLayers: (props) => {
-				const layer = new GeoJsonLayer({
-					...props,
-					getFillColor: [255, 255, 255],
-					lineWidthMinPixels: 1,
-				});
-				return [layer];
-			},
+			getFillColor: [255, 255, 255],
+			lineWidthMinPixels: 1,
 			beforeId: firstLabelLayerId,
 		});
 
